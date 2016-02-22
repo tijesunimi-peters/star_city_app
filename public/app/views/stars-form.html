@@ -1,0 +1,41 @@
+
+<div class="colum">
+    <form name="starsRegisterForm" ng-controller="SignupCtrl">
+        <h2 class="">
+                Stars Registration
+            </h2>
+        
+        <label>
+            <input type="text" required ng-model="starsRegisterData.first_name" />
+            <div class="label-text">First Name</div>
+        </label>
+        <label>
+            <input type="text" ng-model="starsRegisterData.last_name" required />
+            <div class="label-text">Last Name</div>
+        </label>
+        <label>
+            <select name="sexSelect" id="sexSelect"
+      ng-options="option.value for option in sexOptions track by option.id" ng-model="starsRegisterData.sex" required></select>
+            <!-- <div class="label-text">Sex</div> -->
+        </label>
+        <label>
+            <!-- <input type="text" ng-model="star_login.lastName" required /> -->
+            <select name="stateSelect" id="stateSelect"
+      ng-options="option.name for option in states track by option.id" ng-model="starsRegisterData.state" required></select>
+            <!-- <div class="label-text">State</div> -->
+        </label>
+        <label>
+            <input type="text" ng-model="starsRegisterData.city" required />
+            <div class="label-text">City</div>
+        </label>
+        <label>
+            <input type="text" ng-model="starsRegisterData.address" required />
+            <div class="label-text">Address</div>
+        </label>
+        
+        <button type="submit" ng-disabled="starsRegisterForm.$invalid" ng-click="starsRegister(starsRegisterData)">Register</button>
+        <div>
+            <button type="button" ng-click="starsFBRegister()">Register with Facebook</button>
+        </div>
+    </form>
+</div>
