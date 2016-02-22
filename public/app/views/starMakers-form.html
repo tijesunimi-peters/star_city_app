@@ -1,0 +1,17 @@
+<div class="column">
+    <form>
+        <h2 class="">
+                Star Makers Registration
+            </h2>
+        <label>
+            <input type="email" required ng-model="star_register.email" />
+            <div class="label-text">E-mail</div>
+        </label>
+        <label>
+            <input type="password" ng-model="star_register.password" required />
+            <div class="label-text">Password</div>
+        </label>
+        <button type="submit" ng-click="formFields(star_register)">Register</button>
+        <button type="button" ng-click="backToSignUp()">Cancel</button>
+    </form>
+</div>

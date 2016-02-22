@@ -1,0 +1,23 @@
+<div class="column">
+    <div ng-show="error">
+        This is an error
+    </div>
+    <form name="starsLoginForm" ng-controller="SigninCtrl">
+        <h2 class="">
+                Stars Login
+            </h2>
+        <!-- <input type="hidden" ng-value="stars" ng-model="star_login.type" /> -->
+        <label>
+            <input type="email" required ng-model="star_login.email" />
+            <div class="label-text">E-mail</div>
+        </label>
+        <label>
+            <input type="password" ng-model="star_login.password" required />
+            <div class="label-text">Password</div>
+        </label>
+        <button type="submit" ng-disabled="starsLoginForm.$invalid" ng-click="starsLogin(star_login)">Login</button>
+        <div>
+            <button type="button" ng-click="starFBSignin()">Login with Facebook</button>
+        </div>
+    </form>
+</div>
