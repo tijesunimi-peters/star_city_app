@@ -118,8 +118,8 @@
     </script>
     <script src="{{asset('app/scripts/services/RegistrationService.js')}}">
     </script>
-    <script src="{{asset('app/scripts/directives/fileThumb.js')}}">
-    </script>
+    <!--<script src="{{asset('app/scripts/directives/fileThumb.js')}}">
+    </script>-->
     <!-- endbuild -->
    
     <script>

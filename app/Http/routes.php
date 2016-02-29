@@ -34,3 +34,4 @@ Route::get('/', function () {
 
 Route::controller('api','ApiController');
 Route::controller('login','LoginController');
+Route::controller('registration','RegistrationController');
