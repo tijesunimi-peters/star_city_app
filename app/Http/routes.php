@@ -34,6 +34,5 @@ Route::get('/', function () {
 
 Route::controller('api','ApiController');
 Route::controller('login','LoginController');
-<<<<<<< HEAD
 Route::controller('registration','RegistrationController');
-=======
+

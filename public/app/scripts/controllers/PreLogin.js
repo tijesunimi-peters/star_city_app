@@ -230,7 +230,6 @@ angular.module('StarCityApp')
 
         $scope.page2 = function() {
             Registrationservice.checkEmail($scope.registration_data).then(function(res) {
-<<<<<<< HEAD
                 if (res.data.code == 'error') {
                     Notification.error({
                         message: res.data.response,
@@ -239,12 +238,10 @@ angular.module('StarCityApp')
                     })
                 }
 
-
-<<<<<<< HEAD
                 if (res.data.code == 'success') {
                     Notification.success({
                         message: 'Redirecting.....',
-=======
+
                         positionX: 'left',
                         positionY: 'bottom'
                     });
