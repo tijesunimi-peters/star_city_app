@@ -241,18 +241,15 @@ angular.module('StarCityApp', [
 
     $rootScope.$on('$stateChangeStart', function(event, next) {
         if (Login.getUser() && next.url != '/page') {
-
-<<<<<<< HEAD
             // crAcl.setRole("ROLE_LOGIN");
-=======
-            $location.path('/dashboard/index');
+            // $location.path('/dashboard/index');
 
         }
 
         // console.log($rootScope.$watch);
     })
 
-    crAcl.setRedirect("preLogin.signin.view");
+    // crAcl.setRedirect("preLogin.signin.view");
 
 
 }])

@@ -201,7 +201,8 @@ angular.module('StarCityApp')
 
 
         $scope.pushData = function(next) {
-        	console.log(video3);
+        	// console.log(video3);
+
         	if(!$scope.registration_data.email) {
         		Notification.error({
                         message: 'Please fill in your Email',
@@ -255,6 +256,7 @@ angular.module('StarCityApp')
         }
 
         $scope.page3 = function() {
+            console.log($scope.registration_data);
             $state.go('preLogin.stars-form-3');
         }
 
