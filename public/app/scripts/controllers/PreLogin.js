@@ -241,7 +241,7 @@ angular.module('StarCityApp')
 
                 if (res.data.code == 'success') {
                     Notification.success({
-                        message: 'Redirecting.....',
+                        message: 'Proceeding...',
 
                         positionX: 'left',
                         positionY: 'bottom'
