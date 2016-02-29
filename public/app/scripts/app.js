@@ -241,7 +241,10 @@ angular.module('StarCityApp', [
 
     $rootScope.$on('$stateChangeStart', function(event, next) {
         if (Login.getUser() && next.url != '/page') {
-            crAcl.setRole("ROLE_LOGIN");
+
+<<<<<<< HEAD
+            // crAcl.setRole("ROLE_LOGIN");
+=======
             $location.path('/dashboard/index');
 
         }

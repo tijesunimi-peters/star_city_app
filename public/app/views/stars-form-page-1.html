@@ -1,0 +1,19 @@
+
+<div class="colum">
+    <form name="starsRegisterForm" ng-controller="SignupCtrl">
+        <h2 class="">
+                Stars Registration
+            </h2>
+        
+        <label>
+            <input type="email" required ng-model="registration_data.email" />
+            <div class="label-text">Email</div>
+        </label>
+        
+        <label>
+        <button type="submit" ng-disabled="starsRegisterForm.$invalid" ng-click="pushData('page2')">Next</button>
+        <div>
+            <button type="button" ng-click="starsFBRegister()">Register with Facebook</button>
+        </div>
+    </form>
+</div>
