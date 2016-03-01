@@ -11,7 +11,7 @@ use Illuminate\Contracts\Auth\Guard;
 
 
 
-class StarsModel extends Model implements AuthenticatableContract, CanResetPasswordContract
+class Stars extends Model implements AuthenticatableContract, CanResetPasswordContract
 {
 	use Authenticatable, CanResetPassword;
     protected $table = 'stars';
