@@ -30,6 +30,8 @@ angular.module('StarCityApp')
 
         });
 
+        $scope.addVideo = true;
+
         var reg_data = $scope.registration_data = {
             sex: {
                 id: '3',
@@ -198,6 +200,22 @@ angular.module('StarCityApp')
 
         	
         }
+        // $scope.videoCollect = '';
+
+        $scope.addVideo = function(val) {
+            // console.log(val);
+            if(val.length > 0) {
+                $scope.registration_data.videoLink3.push(val);
+                if($scope.registration_data.videoLink3.length === 3) {
+                    $scope.addVideo = false;
+                }
+
+                $scope.videoCount--;
+            }
+            
+            console.log($scope.registration_data);
+            // $scope.videoCollect = "";
+        }
 
 
 
@@ -244,7 +262,7 @@ angular.module('StarCityApp')
 
                 if (res.data.code == 'success') {
                     Notification.success({
-                        message: 'Proceeding...',
+                        message: 'Proceeding',
 
                         positionX: 'left',
                         positionY: 'bottom'

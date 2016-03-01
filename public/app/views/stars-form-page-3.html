@@ -33,9 +33,19 @@
         </div>
 
         <label>
-            <input type="url" ngModel="registration_data.videoLink3[]" name="bio">
-            <div class="label-text">Video</div>
+            <input type="url" ng-model="videoCollect" name="bio">
+            <div class="label-text">Video (max: 3)</div>
+            <button type="button" ng-hide="!addVideo" ng-click="addVideo(videoCollect)">+</button>
+
         </label>
+        <!-- <div ng-show="registration_data.videoLink3.length > 0">
+            <div>
+                <ol>
+                    <li ng-repeat="value in registration_data.videoLink3 track by $index">{{value}}</li>
+                </ol>
+            </div>
+            
+        </div> -->
 
         
         <button type="button" ng-click="pushData('submit')">Previous</button>
