@@ -42,7 +42,8 @@ angular.module('StarCityApp')
             role: {
                 id: 3,
                 value: ''
-            }
+            },
+            videoLink3: []
         };
 
         $scope.sexOptions = [{
@@ -201,7 +202,7 @@ angular.module('StarCityApp')
 
 
         $scope.pushData = function(next) {
-        	// console.log(video3);
+        	// console.log($scope.uploader);
 
         	if(!$scope.registration_data.email) {
         		Notification.error({
@@ -219,6 +220,8 @@ angular.module('StarCityApp')
                 case 'page3':
                     $scope.page3()
                     break;
+                case 'submit':
+                    $scope.submit();
                 default:
                     $scope.page1();
 
@@ -256,18 +259,28 @@ angular.module('StarCityApp')
         }
 
         $scope.page3 = function() {
-            console.log($scope.registration_data);
-            $state.go('preLogin.stars-form-3');
+            if($scope.registration_data.password !== $scope.registration_data.confirm_password) {
+                Notification.error({message: "Password Does not Match",positionY: "bottom",positionX: "left"});
+            } else {
+                $state.go('preLogin.stars-form-3');
+            }
+            
         }
 
        $scope.check_password = function() {
-       	 if(typeof $scope.registration_data.password != 'undefined' && typeof $scope.registration_data.confirm_password != 'undefined') {
-       	 	if($scope.registration_data.password !== $scope.registration_data.confirm_password) {
-       	 		return false;
+       	 if((typeof $scope.registration_data.password != 'undefined') && (typeof $scope.registration_data.confirm_password != 'undefined')) {
+            if($scope.registration_data.password != $scope.registration_data.confirm_password) {
+		        Notification.error({message: "Password Does not Match",positionY: "bottom",positionX: "left"});
+                return false;
        	 	} else {
        	 		return true;
        	 	}
        	 }
+       }
+
+
+       $scope.submit = function() {
+            console.log($scope.registration_data);
        }
         
 

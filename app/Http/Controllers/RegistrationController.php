@@ -22,6 +22,10 @@ class RegistrationController extends Controller
         return response()->json(['code'=>'success','response'=>true]);
       }
 
-      // return response()->json(['code'=>'success','response']);
+    }
+
+
+    public function postPhotoUpload(Request $r) {
+      return response()->json(['code'=>"success",'response'=>'u got in']);
     }
 }

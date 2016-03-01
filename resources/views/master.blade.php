@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="{{asset('app/styles/component.css')}}">
     <link rel="stylesheet" href="{{asset('app/styles/animate.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('app/styles/css/effect1.css')}}" />
-    <link rel="stylesheet" href="{{asset('app/styles/fileform.css')}}">
+    <link rel="stylesheet" href="{{asset('app/styles/CustomFileInputs/css/component.css')}}">
     <link rel="stylesheet" href="{{asset('app/styles/cs-select.css')}}">
     <link rel="stylesheet" href="{{asset('app/styles/cs-skin-slide.css')}}">
     <link rel="stylesheet" href="{{asset('app/styles/main.css')}}">
@@ -99,7 +99,7 @@
     <!-- endbuild -->
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
     <script src="{{asset('app/scripts/app.js')}}"></script>
-    <script src="{{asset('app/scripts/custom-file-input.js')}}"></script>
+    <script src="{{asset('app/styles/CustomFileInputs/js/custom-file-input.js')}}"></script>
     <script src="{{asset('app/scripts/classie.js')}}"></script>
     <script src="{{asset('app/scripts/selectFx.js')}}"></script>
     <!-- // <script src="scripts/controllers/main.js"></script> -->
@@ -117,8 +117,6 @@
     <script src="{{asset('app/scripts/services/Login.js')}}">
     </script>
     <script src="{{asset('app/scripts/services/RegistrationService.js')}}">
-    </script>
-    <script src="{{asset('app/scripts/directives/fileThumb.js')}}">
     </script>
     <!-- endbuild -->
    
