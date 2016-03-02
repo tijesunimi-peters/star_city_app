@@ -2,21 +2,24 @@
 
 angular.module('StarCityApp')
     .controller('PreloginCtrl', function($scope, $state, Registrationservice, Notification,FileUploader) {
+        $scope.emailExists = false;
         var uploader = $scope.uploader = new FileUploader({
-        	url:'index.php/register/photo-upload',
+        	url:'index.php/registration/photo-upload',
         	autoUpload: false,
-        	queueLimit: 1
+        	queueLimit: 1,
+            type: 'image/jpeg',
+            alias: 'passport'
 
         });
         var video = $scope.video = new FileUploader({
-        	url:'index.php/register/photo-upload',
+        	url:'index.php/registration/photo-upload',
         	autoUpload: false,
         	queueLimit: 1,
         	alias: 'video'
 
         });
         var video3 = $scope.video3 = new FileUploader({
-        	url:'index.php/register/photo-upload',
+        	url:'index.php/registration/photo-upload',
         	autoUpload: false,
         	queueLimit: 3,
         	alias: 'video3'
@@ -31,21 +34,11 @@ angular.module('StarCityApp')
         });
 
         $scope.addVideo = true;
+        $scope.addAudio = true;
 
         var reg_data = $scope.registration_data = {
-            sex: {
-                id: '3',
-                'value': 'sex'
-            },
-            state: {
-                id: '38',
-                name: 'state'
-            },
-            role: {
-                id: 3,
-                value: ''
-            },
-            videoLink3: []
+            videoLink3: [],
+            audioLink3: []
         };
 
         $scope.sexOptions = [{
@@ -54,9 +47,6 @@ angular.module('StarCityApp')
         }, {
             id: 2,
             value: 'female'
-        }, {
-            id: 3,
-            value: 'sex'
         }];
 
         $scope.roles = [{
@@ -64,10 +54,10 @@ angular.module('StarCityApp')
             value: 'Singer'
         }, {
             id: 2,
-            value: 'Acting'
+            value: 'Actor/Actress'
         }, {
             id: 3,
-            value: ''
+            value: "Dancer"
         }];
 
 
@@ -200,27 +190,28 @@ angular.module('StarCityApp')
 
         	
         }
-        // $scope.videoCollect = '';
 
-        $scope.addVideo = function(val) {
-            // console.log(val);
-            if(val.length > 0) {
-                $scope.registration_data.videoLink3.push(val);
+        $scope.addVideo = function(videoInput) {
+            if(typeof videoInput !== 'undefined' && videoInput.length > 0) {
+                $scope.registration_data.videoLink3.push(videoInput);
                 if($scope.registration_data.videoLink3.length === 3) {
                     $scope.addVideo = false;
                 }
-
-                $scope.videoCount--;
             }
             
-            console.log($scope.registration_data);
-            // $scope.videoCollect = "";
         }
 
+        $scope.addAudio = function(audioInput) {
+            if(typeof audioInput !== 'undefined' && audioInput.length > 0) {
+                $scope.registration_data.audioLink3.push(audioInput);
+                if($scope.registration_data.videoLink3.length === 3) {
+                    $scope.addAudio = false;
+                }
 
+            }
+        }
 
         $scope.pushData = function(next) {
-        	// console.log($scope.uploader);
 
         	if(!$scope.registration_data.email) {
         		Notification.error({
@@ -253,6 +244,7 @@ angular.module('StarCityApp')
         $scope.page2 = function() {
             Registrationservice.checkEmail($scope.registration_data).then(function(res) {
                 if (res.data.code == 'error') {
+                    $scope.emailExists = true;
                     Notification.error({
                         message: res.data.response,
                         positionX: 'left',
@@ -270,6 +262,8 @@ angular.module('StarCityApp')
 
                     $state.go('preLogin.stars-form-2');
                 }
+
+
 
             });
 
@@ -298,7 +292,19 @@ angular.module('StarCityApp')
 
 
        $scope.submit = function() {
-            console.log($scope.registration_data);
+            if($scope.uploader.queue.length > 0) {
+                angular.forEach($scope.uploader.queue,function(val,key){
+                    val.upload();
+                });
+            } else {
+                $state.go('preLogin.stars-form-2');
+                Notification.error({
+                    message: "Pls Upload your Photo",
+                    positionX: "left",
+                    positionY: "bottom"
+                });
+
+            }
        }
         
 

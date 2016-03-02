@@ -26,6 +26,30 @@ class RegistrationController extends Controller
 
 
     public function postPhotoUpload(Request $r) {
-      return response()->json(['code'=>"success",'response'=>'u got in']);
+      $rule = [
+        "passport"=>'mimes:jpeg,jpg,png'
+      ];
+      if($r->file('passport')) {
+
+        $v = \Validator::make($r->all(), $rule);
+        if($v->fails()) {
+          return response()->json(['code'=>"error","response"=>"Photo should be in jpeg/jpg/png format"]);
+        }
+        if(file_exists('passports/'.$r->file('passport')->getClientOriginalName())) {
+          unlink('passports/'.$r->file('passport')->getClientOriginalName());
+        }
+
+        if($r->file('passport')->move('passports',$r->file('passport')->getClientOriginalName())) {
+          $size = getimagesize('passports/'.$r->file('passport')->getClientOriginalName());
+          return response()->json(['code'=>'success','response'=>$size]);
+
+        } else {
+          return response()->json(['code'=>'error','response'=>'File Upload Failed']);
+        }
+
+      } else {
+        return response()->json(['code'=>"error","response"=>"No file was uploaded"]);
+      }
+      
     }
 }
