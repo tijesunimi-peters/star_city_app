@@ -9,7 +9,7 @@ angular.module('StarCityApp', [
         'ui-notification',
         'angular-loading-bar',
         'cr.acl',
-        'angularFileUpload'
+        'ngFileUpload'
     ])
     .config(function($stateProvider, $urlRouterProvider) {
         //delete $httpProvider.defaults.headers.common['X-Requested-With'];

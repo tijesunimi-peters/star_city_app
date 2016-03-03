@@ -10,7 +10,10 @@ use App\Http\Controllers\Controller;
 
 class RegistrationController extends Controller
 {
+
+
     public function postStarCheckEmail(Request $r) {
+      // return dd($r)
       if(!$r->input('email')) {
         return response()->json(['code'=>'error','response'=>'Email Index not set']);
       }
@@ -25,31 +28,69 @@ class RegistrationController extends Controller
     }
 
 
-    public function postPhotoUpload(Request $r) {
+    public function postValidatePhoto(Request $r) {
       $rule = [
-        "passport"=>'mimes:jpeg,jpg,png'
+        "file"=>'mimes:jpeg,jpg,png'
       ];
-      if($r->file('passport')) {
+
+      if($r->file('file')) {
 
         $v = \Validator::make($r->all(), $rule);
         if($v->fails()) {
           return response()->json(['code'=>"error","response"=>"Photo should be in jpeg/jpg/png format"]);
         }
-        if(file_exists('passports/'.$r->file('passport')->getClientOriginalName())) {
-          unlink('passports/'.$r->file('passport')->getClientOriginalName());
-        }
+        
+        if(!$this->checkImageSize($r->file('file'))) {
+          return response()->json(['code'=>'error','response'=>"Pls make sure photo is about 1MB, width: 180px and Height: 180px"]);
+        };
 
-        if($r->file('passport')->move('passports',$r->file('passport')->getClientOriginalName())) {
-          $size = getimagesize('passports/'.$r->file('passport')->getClientOriginalName());
-          return response()->json(['code'=>'success','response'=>$size]);
 
-        } else {
-          return response()->json(['code'=>'error','response'=>'File Upload Failed']);
-        }
 
       } else {
-        return response()->json(['code'=>"error","response"=>"No file was uploaded"]);
+        return response()->json(['code'=>"error","response"=>$r->file("file")]);
       }
+
+      if($this->photoMove($r->file('file'))) {
+          return response()->json(['code'=>'success','response'=>'File Upload Successful']);
+        } else {
+          return response()->json(['code'=>'error','response'=>'File Upload Failed; Pls make sure the file conforms to the specificationa']);
+        }
+      
+    }
+
+    Private function photo_existence($file) {
+      if(file_exists('passports/'.$file)) {
+          unlink('passports/'.$file);
+        }
+        return true;
+    }
+
+    Private function photoMove($file) {
+      if($file->move('passports',\Hash::make($file->getClientOriginalName()).".".$file->getClientOriginalExtension())) {
+          return true;
+        } else {
+          return false;
+        }
+    }
+
+    Private function checkImageSize($file) {
+      $file_info = getimagesize($file);
+      if($file_info[0] > 180 || $file_info[1] > 180) {
+        return false;
+      } 
+      return true;
+    }
+
+
+    Private function uploadPhoto($file) {
+      if($this->photoMove($file->getClientOriginalName())) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+    Public function postRegisterStar(Request $r) {
       
     }
 }

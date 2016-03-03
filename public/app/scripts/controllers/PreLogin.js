@@ -1,40 +1,12 @@
 'use strict';
 
 angular.module('StarCityApp')
-    .controller('PreloginCtrl', function($scope, $state, Registrationservice, Notification,FileUploader) {
+    .controller('PreloginCtrl', function($scope, $state, Registrationservice, Notification,$cacheFactory) {
         $scope.emailExists = false;
-        var uploader = $scope.uploader = new FileUploader({
-        	url:'index.php/registration/photo-upload',
-        	autoUpload: false,
-        	queueLimit: 1,
-            type: 'image/jpeg',
-            alias: 'passport'
-
-        });
-        var video = $scope.video = new FileUploader({
-        	url:'index.php/registration/photo-upload',
-        	autoUpload: false,
-        	queueLimit: 1,
-        	alias: 'video'
-
-        });
-        var video3 = $scope.video3 = new FileUploader({
-        	url:'index.php/registration/photo-upload',
-        	autoUpload: false,
-        	queueLimit: 3,
-        	alias: 'video3'
-
-        });
-        var pic3 = $scope.pic3 = new FileUploader({
-        	url:'index.php/register/photo-upload',
-        	autoUpload: false,
-        	queueLimit: 3,
-        	alias: 'pic3'
-
-        });
-
         $scope.addVideo = true;
         $scope.addAudio = true;
+        $scope.canUpload = false;
+
 
         var reg_data = $scope.registration_data = {
             videoLink3: [],
@@ -224,6 +196,7 @@ angular.module('StarCityApp')
         	}
             switch (next) {
                 case 'page2':
+                    // $scope.submit();
                     $scope.page2();
                     break;
                 case 'page3':
@@ -242,6 +215,7 @@ angular.module('StarCityApp')
         }
 
         $scope.page2 = function() {
+            // $scope.submit();
             Registrationservice.checkEmail($scope.registration_data).then(function(res) {
                 if (res.data.code == 'error') {
                     $scope.emailExists = true;
@@ -292,19 +266,41 @@ angular.module('StarCityApp')
 
 
        $scope.submit = function() {
-            if($scope.uploader.queue.length > 0) {
-                angular.forEach($scope.uploader.queue,function(val,key){
-                    val.upload();
-                });
-            } else {
-                $state.go('preLogin.stars-form-2');
-                Notification.error({
-                    message: "Pls Upload your Photo",
-                    positionX: "left",
-                    positionY: "bottom"
-                });
+        console.log($scope.registration_data);
+        
+            
+       }
 
+       $scope.cachePhoto = function(photo) {
+            if(Registrationservice.cachePhoto(photo)) {
+                console.log('Cached');
+            };
+       }
+
+       $scope.checkFile = function(photo) {
+        Registrationservice.checkPhoto(photo).then(function(res) {
+            if(res.data.code === 'error') {
+                Notification.error({
+                    message: res.data.response,
+                    positionY: 'bottom',
+                    positionX: 'left'
+                });
             }
+            if(res.data.code === 'success') {
+                $scope.canUpload = true;
+                Notification.success({
+                    message: res.data.response,
+                    positionY: 'bottom',
+                    positionX: 'left'
+                });
+            }
+        });
+      
+        
+       }
+
+       var getPhoto = function() {
+        console.log($cacheFactory.get('passportStore').get('passport'));
        }
         
 
