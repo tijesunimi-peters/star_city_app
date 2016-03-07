@@ -1,11 +1,26 @@
 'use strict';
 
 angular.module('StarCityApp')
-    .controller('PreloginCtrl', function($scope, $state, Registrationservice, Notification,$cacheFactory) {
+    .controller('PreloginCtrl', function($scope, $state, Registrationservice, Notification,$cacheFactory,FileUploader) {
         $scope.emailExists = false;
         $scope.addVideo = true;
         $scope.addAudio = true;
         $scope.canUpload = false;
+
+        var picUpload = $scope.picUpload = new FileUploader({
+            url: "index.php/registration/pic-uploader",
+            alias: 'pics',
+            queueLimit: 3
+        });
+
+        $scope.picUpload.filters.push({
+            name: 'customFilter',
+            fn: function(item, options) {
+                return this.queue.length < 3;
+            }
+        });
+
+        $scope.picUpload.onWhenAdding
 
 
         var reg_data = $scope.registration_data = {
@@ -267,14 +282,6 @@ angular.module('StarCityApp')
 
        $scope.submit = function() {
         console.log($scope.registration_data);
-        
-            
-       }
-
-       $scope.cachePhoto = function(photo) {
-            if(Registrationservice.cachePhoto(photo)) {
-                console.log('Cached');
-            };
        }
 
        $scope.checkFile = function(photo) {
@@ -299,9 +306,9 @@ angular.module('StarCityApp')
         
        }
 
-       var getPhoto = function() {
-        console.log($cacheFactory.get('passportStore').get('passport'));
-       }
-        
+
+        $scope.show = function() {
+            console.log($scope.picUpload);
+        }
 
     });

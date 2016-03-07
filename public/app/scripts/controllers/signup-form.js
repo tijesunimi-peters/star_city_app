@@ -5,4 +5,8 @@ angular.module('StarCityApp')
         $scope.getStarsForm = function() {
             $state.go('preLogin.stars-form-1');
         }
+
+        $scope.continueAsStarMaker = function() {
+          $state.go('preLogin.starMakers-form');
+        }
     });

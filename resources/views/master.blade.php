@@ -97,6 +97,7 @@
     <script src="{{asset('app/bower_components/cr-acl/cr-acl.js')}}"></script>
     <script src="{{asset('app/bower_components/ng-file-upload/ng-file-upload.min.js')}}"></script>
     <script src="{{asset('app/bower_components/ng-file-upload/ng-file-upload-shim.min.js')}}"></script>
+    <script src="{{asset('app/bower_components/angular-file-upload/dist/angular-file-upload.min.js')}}"></script>
     <!-- endbuild -->
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
     <script src="{{asset('app/scripts/app.js')}}"></script>

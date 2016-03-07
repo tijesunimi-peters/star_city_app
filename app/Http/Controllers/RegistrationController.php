@@ -90,7 +90,7 @@ class RegistrationController extends Controller
       }
     }
 
-    Public function postRegisterStar(Request $r) {
+    Public function postPicUploader(Request $r) {
       
     }
 }
