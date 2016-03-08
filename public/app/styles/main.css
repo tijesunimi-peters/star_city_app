@@ -290,6 +290,7 @@ label .label-text {
   -webkit-transform: translateY(-34px);
   transform: translateY(-34px);
   transition: all 0.3s;
+  font-weight: normal;
 }
 label input {
   background-color: transparent;

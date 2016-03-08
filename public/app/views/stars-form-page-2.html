@@ -1,78 +1,148 @@
-<div class="colum">
-    <form name="starsRegisterForm" >
-        <h2 class="">
-        Stars Registration
-        </h2>
-        <div>
-            <div class="ng-hide" ng-show="starsRegisterForm.passport.$invalid">
-                <div style="" class="row">
-                    <div class="center fullWidth" >
-                        <div style="width: 200px; margin: 0 auto">
-                        <h4>Photo Upload Spec</h4>
-                            <ul style="list-style: none; text-align: left">
-                                <li>Max Size: 1MB</li>
-                                <li>Max Width: 180px</li>
-                                <li>Max Height: 180px</li>
-                            </ul>
+<div class="row center-xs">
+    <div class="col-xs-8">
+        <div class="panel panel-default">
+            <div class="page-header">
+                <h1>Stars Registration </h1>
+            </div>
+            <div class="panel-body">
+                <form name="starsRegisterForm">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <h3>Photo</h3>
+                            <div ng-show="canUpload">
+                                <img ng-src="passports/{{image}}" height="180" />
+                            </div>
+                        </div>
+                        <div class="col-xs-12">
+                            <div class="box">
+                                <div ng-hide="canUpload">
+                                    <div class="ng-hide" ng-show="starsRegisterForm.passport.$invalid">
+                                        <div style="" class="row center-xs">
+                                            <div class="col-xs-12">
+                                                <div class="box">
+                                                    <div class="alert alert-danger alert-dismissible" role="alert">
+                                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">Close</span></button>
+                                                        <!-- <h4>Photo Upload Spec</h4> -->
+                                                        <ul style="text-align: left">
+                                                            <h4>Photo Upload Spec</h4>
+                                                            <li>Max Size: 1MB</li>
+                                                            <li>Max Width: 180px</li>
+                                                            <li>Max Height: 180px</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <input type="file" ngf-select ng-change="checkFile(registration_data.photo)" ng-model="registration_data.photo" name="passport" id="file-5" class="inputfile inputfile-4" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="1MB" ngf-max-height="180" ngf-max-width="180" ngf-resize="{width: 100, height: 100}" />
+                                    <label for="file-5">
+                                        <figure>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="7" viewBox="0 0 20 17">
+                                                <path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z" />
+                                            </svg>
+                                        </figure> <span>Upload a Picture&hellip;</span></label>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    
-                </div>
-                
+                    <div class="row around-xs">
+                        <div class="col-xs-6">
+                            <div class="box">
+                                <label>
+                                    <input type="text" required ng-model="registration_data.first_name" />
+                                    <div class="label-text">First Name</div>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="box">
+                                <label>
+                                    <input type="text" ng-model="registration_data.last_name" required />
+                                    <div class="label-text">Last Name</div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row center-xs">
+                        <div class="box">
+                            <label>
+                                <input type="text" required ng-model="registration_data.username" />
+                                <div class="label-text">Username</div>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row around-xs">
+                        <div class="col-xs-6">
+                            <div class="box">
+                                <label>
+                                    <input type="password" required ng-model="registration_data.password" minlength="6" />
+                                    <div class="label-text">Password</div>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="box">
+                                <label>
+                                    <input type="password" ng-blur="check_password()" required ng-model="registration_data.confirm_password" />
+                                    <div class="label-text">Confirm Password</div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row around-xs selection-row">
+                        <div class="col-xs-6">
+                            <div class="box">
+                                <label class="label-text">Sex</label>
+                                <select name="sexSelect" id="sexSelect" ng-options="option.value for option in sexOptions track by option.id" ng-model="registration_data.sex" required class="form-control"></select>
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="box">
+                                <label class="label-text">State</label>
+                                <select name="stateSelect" id="stateSelect" ng-options="option.name for option in states track by option.id" ng-model="registration_data.state" required class="form-control"></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <div class="box">
+                                <label>
+                                    <input type="text" ng-model="registration_data.city" required />
+                                    <div class="label-text">City</div>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="box">
+                                <label>
+                                    <input type="text" ng-model="registration_data.address" />
+                                    <div class="label-text">Address</div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row center-xs">
+                        <div class="box">
+                            <label>
+                                <input type="url" ng-model="registration_data.videoLink" />
+                                <div class="label-text">Video</div>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row between-xs">
+                        <div class="col-xs-4">
+                            <div class="box">
+                                <button type="button" ng-click="pushData('page1')">Previous</button>
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="box">
+                                <button type="button" ng-disabled="starsRegisterForm.$invalid" ng-click="pushData('page3')">Next</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
-            <input type="file" ngf-select ng-change="checkFile(registration_data.photo)" ng-model="registration_data.photo" name="passport" id="file-5" class="inputfile inputfile-4" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="1MB" ngf-max-height="180" ngf-max-width="180" ngf-resize="{width: 100, height: 100}" required />
-            <label for="file-5"><figure><svg xmlns="http://www.w3.org/2000/svg" width="10" height="7" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"/></svg></figure> <span>Upload a Picture&hellip;</span></label>
-            <div ng-show="starsRegisterForm.passport.$valid">
-                File Name: {{starsRegisterForm.passport.$viewValue.$ngfName}} <br />
-                Size: {{starsRegisterForm.passport.$viewValue.$ngfOrigSize/1000 | number:3}}Kb
-            </div>
-            
         </div>
-        
-        
-        <label>
-            <input type="text" required ng-model="registration_data.username" />
-            <div class="label-text">Username</div>
-        </label>
-        <label>
-            <input type="password" required ng-model="registration_data.password" minlength="6" />
-            <div class="label-text">Password</div>
-        </label>
-        <label>
-            <input type="password" ng-blur="check_password()" required ng-model="registration_data.confirm_password" />
-            <div class="label-text">Confirm Password</div>
-        </label>
-        <label>
-            <input type="text" required ng-model="registration_data.first_name" />
-            <div class="label-text">First Name</div>
-        </label>
-        <label>
-            <input type="text" ng-model="registration_data.last_name" required />
-            <div class="label-text">Last Name</div>
-        </label>
-        <label>
-        <select name="sexSelect" id="sexSelect" ng-options="option.value for option in sexOptions track by option.id" ng-model="registration_data.sex" required></select>
-    </label>
-    <label>
-        <!-- <input type="text" ng-model="star_login.lastName" required /> -->
-    <select name="stateSelect" id="stateSelect" ng-options="option.name for option in states track by option.id" ng-model="registration_data.state" required></select>
-    <!-- <div class="label-text">State</div> -->
-</label>
-<label>
-    <input type="text" ng-model="registration_data.city" required />
-    <div class="label-text">City</div>
-</label>
-<label>
-    <input type="text" ng-model="registration_data.address"  />
-    <div class="label-text">Address</div>
-</label>
-<label>
-    <input type="url" ng-model="registration_data.videoLink" />
-    <div class="label-text">Video</div>
-</label>
-<button type="button" ng-click="pushData('page1')">Previous</button>
-<button type="button" ng-disabled="starsRegisterForm.$invalid" ng-click="pushData('page3')">Next</button>
-<div>
-</div>
-</form>
+    </div>
 </div>

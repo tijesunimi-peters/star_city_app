@@ -6,6 +6,7 @@ angular.module('StarCityApp')
         $scope.addVideo = true;
         $scope.addAudio = true;
         $scope.canUpload = false;
+        $scope.image = null;
 
         var picUpload = $scope.picUpload = new FileUploader({
             url: "index.php/registration/pic-uploader",
@@ -295,6 +296,7 @@ angular.module('StarCityApp')
             }
             if(res.data.code === 'success') {
                 $scope.canUpload = true;
+                $scope.image = res.data.file_name;
                 Notification.success({
                     message: res.data.response,
                     positionY: 'bottom',

@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 
 class RegistrationController extends Controller
 {
+    Private $file_name = null;
 
 
     public function postStarCheckEmail(Request $r) {
@@ -51,7 +52,7 @@ class RegistrationController extends Controller
       }
 
       if($this->photoMove($r->file('file'))) {
-          return response()->json(['code'=>'success','response'=>'File Upload Successful']);
+          return response()->json(['code'=>'success','response'=>'File Upload Successful','file_name'=>$this->file_name]);
         } else {
           return response()->json(['code'=>'error','response'=>'File Upload Failed; Pls make sure the file conforms to the specificationa']);
         }
@@ -66,7 +67,9 @@ class RegistrationController extends Controller
     }
 
     Private function photoMove($file) {
-      if($file->move('passports',\Hash::make($file->getClientOriginalName()).".".$file->getClientOriginalExtension())) {
+      $sha = sha1($file->getClientOriginalName()).".".$file->getClientOriginalExtension();
+      if($file->move('passports',$sha)) {
+          $this->file_name = $sha;
           return true;
         } else {
           return false;

@@ -1,29 +1,49 @@
-
-<div class="colum">
-<div ng-show="emailExists">
-    <div class="row center-xs">
+<div class="row center-xs">
+    <div class="col-xs-8">
         <div class="box">
-            <button ng-click="continueAsStarMaker()">
-                Click Here to Continue as a Star Maker
-            </button>
+            <div class="panel panel-default">
+                <div class="page-header">
+                    <h1>Stars Registration</h1>
+                </div>
+                <div class="panel-body">
+                    <div class="row center-xs">
+                        <div class="box">
+                            <div ng-show="emailExists">
+                                <button ng-click="continueAsStarMaker()">
+                                    Click Here to Continue as a Star Maker
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row center-xs">
+                        <div class="box">
+                            <form name="starsRegisterForm" ng-controller="SignupCtrl">
+                                <div class="row center-xs">
+                                    <div class="col-xs-12">
+                                        <label>
+                                            <input type="email" required ng-model="registration_data.email" />
+                                            <div class="label-text">Email</div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="row bewteen-xs">
+                                    <div class="col-xs">
+                                        <div class="box">
+                                            <button type="button" ng-click="starsFBRegister()">Register with Facebook</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs">
+                                        <div class="box">
+                                            <button type="submit" ng-disabled="starsRegisterForm.$invalid" ng-click="pushData('page2')">Next</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-    <form name="starsRegisterForm" ng-controller="SignupCtrl">
-        <h2 class="">
-                Stars Registration
-            </h2>
-        
-        <label>
-            <input type="email" required ng-model="registration_data.email" />
-            <div class="label-text">Email</div>
-        </label>
-        
-        <label>
-        <button type="submit" ng-disabled="starsRegisterForm.$invalid" ng-click="pushData('page2')">Next</button>
-         <button type="button" ng-click="starsFBRegister()">Register with Facebook</button>
-        <div>
-           &nbsp;
-        </div>
-    </form>
-</div>
+

@@ -9,7 +9,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title></title>
+    <title>Star City Hq</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width initial-scale=1.0">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
@@ -18,12 +18,12 @@
     <link rel="stylesheet" href="{{asset('app/bower_components/angular-ui-notification/dist/angular-ui-notification.min.css')}}">
     <link rel="stylesheet" href="{{asset('app/styles/normalize.css')}}">
     <link rel="stylesheet" href="{{asset('app/styles/flexboxgrid.min.css')}}">
+    <link rel="stylesheet" href="{{asset('styles/bootstrap/css/bootstrap.min.css')}}">
+
     <link rel="stylesheet" href="{{asset('app/styles/component.css')}}">
     <link rel="stylesheet" href="{{asset('app/styles/animate.min.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('app/styles/css/effect1.css')}}" />
+    
     <link rel="stylesheet" href="{{asset('app/styles/CustomFileInputs/css/component.css')}}">
-    <link rel="stylesheet" href="{{asset('app/styles/cs-select.css')}}">
-    <link rel="stylesheet" href="{{asset('app/styles/cs-skin-slide.css')}}">
     <link rel="stylesheet" href="{{asset('app/styles/main.css')}}">
     
     <!-- endbuild -->
@@ -98,12 +98,11 @@
     <script src="{{asset('app/bower_components/ng-file-upload/ng-file-upload.min.js')}}"></script>
     <script src="{{asset('app/bower_components/ng-file-upload/ng-file-upload-shim.min.js')}}"></script>
     <script src="{{asset('app/bower_components/angular-file-upload/dist/angular-file-upload.min.js')}}"></script>
+    <script src="{{asset('styles/bootstrap/js/bootstrap.min.js')}}"></script>
     <!-- endbuild -->
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
     <script src="{{asset('app/scripts/app.js')}}"></script>
     <script src="{{asset('app/styles/CustomFileInputs/js/custom-file-input.js')}}"></script>
-    <script src="{{asset('app/scripts/classie.js')}}"></script>
-    <script src="{{asset('app/scripts/selectFx.js')}}"></script>
     <!-- // <script src="scripts/controllers/main.js"></script> -->
     <script src="{{asset('app/scripts/controllers/main.js')}}"></script>
     <script src="{{asset('app/scripts/controllers/home.js')}}"></script>
@@ -122,13 +121,7 @@
     </script>
     <!-- endbuild -->
    
-    <script>
-        (function() {
-            [].slice.call( document.querySelectorAll( 'select.cs-select' ) ).forEach( function(el) {    
-                new SelectFx(el);
-            } );
-        })();
-    </script>
+   
 </body>
 
 </html>

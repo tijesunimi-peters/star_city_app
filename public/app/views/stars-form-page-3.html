@@ -1,44 +1,123 @@
-
-<div class="colum">
-    <form name="starsRegisterForm">
-        <h2 class="">
-                Stars Registration
-            </h2>
-        
-        <label>
-        <div class="label-tex">Role</div>
-            <select name="sexSelect" id="sexSelect"
-      ng-options="option.value for option in roles track by option.id" ng-model="registration_data.role" required></select>
-
-        </label>
-        
-        <label>
-        <div class="label-te">Bio</div>
-            <textarea ngModel="registration_data.bio" name="bio" required cols="50" rows="10" minlength="500"></textarea>
-        </label>
-        <div ng-hide="picUpload.queue.length === 3" accept="image/*" style="margin: 10px 0px">
-            <input type="file" nv-file-select="" uploader="picUpload" multiple class="inputfile inputfile-4" ng-click="show()" id="file-5" />
-
-            <label for="file-5"><figure><svg xmlns="http://www.w3.org/2000/svg" width="10" height="7" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"/></svg></figure> <span>Upload a Picture&hellip;</span></label>
+<div class="row center-xs">
+    <div class="col-xs-8">
+        <div class="panel panel-default">
+            <div class="page-header">
+                <h1>Stars Registration </h1>
+            </div>
+            <div class="panel-body">
+                <form name="starsRegisterForm">
+                    <div class="row center-xs">
+                        <div class="col-xs-6">
+                            <div class="box">
+                                <label class="label-text">Role</label>
+                            <select name="sexSelect" id="sexSelect" ng-options="option.value for option in roles track by option.id" ng-model="registration_data.role" required class="form-control"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row center-xs">
+                    <div class="col-xs-6">
+                        <div class="box">
+                            <label class="label-text">Bio</label>
+                            <textarea ngModel="registration_data.bio" name="bio" required cols="50" rows="10" minlength="500" class="form-control"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row center-xs" style="margin-top: 20px">
+                    <div class="col-xs-12">
+                        <div class="box">
+                            <div class="panel panel-default">
+                                <!-- Default panel contents -->
+                                <div class="panel-heading">Pictures</div>
+                                <div class="panel-body">
+                                    <div ng-hide="picUpload.queue.length === 3"  style="margin: 10px 0px">
+                                        <input type="file" nv-file-select="" uploader="picUpload" multiple class="inputfile inputfile-4" id="file-5" accept="image/*" />
+                                        <label for="file-5">
+                                            <figure>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="7" viewBox="0 0 20 17">
+                                                    <path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z" />
+                                                </svg>
+                                            </figure>
+                                            <span>Upload a Picture&hellip;</span>
+                                            <small>Max Upload: 3</small>
+                                        </label>
+                                    </div>
+                                </div>
+                                <!-- Table -->
+                                <table class="table" ng-show="picUpload.queue.length > 0">
+                                    <thead>
+                                        <tr>
+                                            <th class="center">File</th>
+                                            <th class="center">Size</th>
+                                            <th class="center">Remove</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="item in picUpload.queue">
+                                            <td><div ng-thumb="{ file: item._file, height: 100 }"></div></td>
+                                            <td>
+                                                <p>
+                                                    {{ item.file.size/1024/1024|number:2 }} MB
+                                                </p>
+                                            </td>
+                                            <td>
+                                                <button ng-click="item.remove()">Remove</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row center-xs">
+                    <div class="col-xs-6">
+                        <div class="box">
+                            <label>
+                                <input type="url" ng-model="videoCollect" name="bio">
+                                <div class="label-text">Video (max: 3)</div>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-xs-2">
+                        <div class="box">
+                            <button type="button" ng-hide="!addVideo" ng-click="addVideo(videoCollect)">Add</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row center-xs">
+                    <div class="col-xs-6">
+                        <div class="box">
+                            <label>
+                                <input type="url" ng-model="audioCollect" name="bio">
+                                <div class="label-text">Audio (max: 3)</div>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-xs-2">
+                        <div class="box">
+                            <button type="button" ng-hide="!addAudio" ng-click="addAudio(audioCollect)">Add</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row between-xs">
+                    <div class="col-xs-4">
+                        <div class="box">
+                            <button type="button" ng-click="pushData('page2')">Previous</button>
+                        </div>
+                    </div>
+                    <div class="col-xs-4">
+                        <div class="box">
+                            <button type="button" ng-disabled="starsRegisterForm.$invalid" ng-click="submit()">Submit</button>
+                        </div>
+                        
+                    </div>
+                </div>
+                
+                
+                
+            </form>
         </div>
-        
-
-        <label>
-            <input type="url" ng-model="videoCollect" name="bio">
-            <div class="label-text">Video (max: 3)</div>
-            <button type="button" ng-hide="!addVideo" ng-click="addVideo(videoCollect)">+</button>
-
-        </label>
-        <label>
-            <input type="url" ng-model="audioCollect" name="bio">
-            <div class="label-text">Audio (max: 3)</div>
-            <button type="button" ng-hide="!addAudio" ng-click="addAudio(audioCollect)">+</button>
-
-        </label>
-        
-
-        
-        <button type="button" ng-click="pushData('submit')">Previous</button>
-        <button type="submit" ng-disabled="starsRegisterForm.$invalid" ng-click="submit()">Submit</button>
-    </form>
+    </div>
+</div>
 </div>
