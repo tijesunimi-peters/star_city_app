@@ -19,7 +19,6 @@ angular.module('StarCityApp')
 
         $scope.starsLogin = function(data) {
             Login.serverCall(data).then(function(result) {
-
                 if (result.status !== 200) {
                     Notification.error({
                         message: "An Error Occured; Please Check your Username and Password and try again",
@@ -27,13 +26,13 @@ angular.module('StarCityApp')
                         positionY: 'left'
                     });
                 } else {
-                    if (result.data.error) {
+                    if (result.data.code === 'error') {
                         Notification.error({
                             message: result.data.error,
                             positionX: 'bottom',
                             positionY: 'left'
                         });
-                    } else if (result.data.name) {
+                    } else if (result.data.code === 'success') {
 
                         Notification.success({
                             message: 'Login Successful',
@@ -41,8 +40,7 @@ angular.module('StarCityApp')
                             positionY: 'left'
                         });
 
-                        $window.sessionStorage.setItem('auth', data);
-                        crAcl.setRole("ROLE_LOGIN");
+                        $window.sessionStorage.setItem('token', result.data.token);
 
                         $timeout(function() {
                             $state.go('dashboard.dbIndex');
@@ -59,11 +57,18 @@ angular.module('StarCityApp')
 
         }
 
+        $scope.starsLogout = function() {
+            $window.sessionStorage.clear();
+            Login.logout().then(function(res) {
+                // console.log(res);
+                $state.go('preLogin.stars-signin');
+            });
+        }
+
         $scope.starFBSignin = function() {
             Login.starFbLogin().then(function(res) {
                 if(res.accessToken) {
                     $window.sessionStorage.setItem('auth',res.accessToken);
-                    crAcl.setRole("ROLE_LOGIN");
 
                     Notification.success({
                             message: 'Login Successful',

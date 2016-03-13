@@ -1,54 +1,42 @@
 'use strict';
 
 angular.module("StarCityApp")
-  .service('Login', function($http, $cookies,$timeout,$q,$window) {
-    
-    var userModel = {};
-   
-    userModel.serverCall = function(data) {
-    	var deferred = $q.defer();
-    	$http.post('index.php/login/stars-login/',data).then(function(res) {
-    		deferred.resolve(res)
-    	}).catch(function(e) {
-    		deferred.reject(e);
-    	});
-        
-    	return deferred.promise;
+    .service('Login', function($http, $cookies, $timeout, $q, $window) {
 
-    }
+        var userModel = {};
 
-    userModel.getUser = function() {
-    	var user = $window.sessionStorage.getItem('auth');
+        userModel.serverCall = function(data) {
+            var deferred = $q.defer();
+            $http.post('index.php/login/stars-login/', data).then(function(res) {
+                deferred.resolve(res)
+            }).catch(function(e) {
+                deferred.reject(e);
+            });
+
+            return deferred.promise;
+
+        }
+
+        userModel.getUser = function() {
+            var user = $window.sessionStorage.getItem('token');
 
 
-    	if(user) {
-    		return true;
-    	} else {
-    		return false;
-    	}
-    	
-    }
+            if (user) {
+                return true;
+            } else {
+                return false;
+            }
 
-    userModel.tryLink = function() {
-    	 var q = $q.defer();
-    	$http.get('index.php/login').then(function(res) {
-    		
-    		q.resolve(res.data);
-    		
-    	}).catch(function(e) {
-    		q.reject(e);
-    	});
+        }
 
-    	return q.promise;
-    }
 
-    userModel.starFbLogin = function() {
-        var q = $q.defer();
-        FB.login(function(response) {
+        userModel.starFbLogin = function() {
+            var q = $q.defer();
+            FB.login(function(response) {
                 if (response.authResponse) {
                     console.log('Welcome!  Fetching your information.... ');
-                    FB.api('/me','GET',{"fields":"id,name,birthday,first_name,last_name,gender,website,middle_name,quotes,email"}, function(res) {
-                        if(res.error || !res) {
+                    FB.api('/me', 'GET', { "fields": "id,name,birthday,first_name,last_name,gender,website,middle_name,quotes,email" }, function(res) {
+                        if (res.error || !res) {
                             q.reject('No Response');
                         } else {
                             console.log(res);
@@ -61,10 +49,22 @@ angular.module("StarCityApp")
                 }
             });
 
-        return q.promise;
-    }
-
-    return userModel;
+            return q.promise;
+        }
 
 
-  });
+        userModel.logout = function() {
+            var d = $q.defer();
+            $http.post('index.php/login/logout').then(function(res) {
+                d.resolve(res);
+            }).catch(function(e) {
+                d.reject(e);
+            })
+
+            return d.promise;
+        }
+
+        return userModel;
+
+
+    });

@@ -5,21 +5,19 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\Http\Requests\UsersLoginRequest as ULR;
 use App\Http\Controllers\Controller;
 use \Validator;
 use App\StarsModel;
 use \Auth;
-// use Illuminate\Auth\SessionGuard as G;
-// use Illuminate\Support\Facades\Auth as A;
-// use Sarav\Multiauth\MultiauthServiceProvider as S;
+use JWTAuth;
+use Tymon\JWTAuth\Exceptions\JWTException;
 
 class LoginController extends Controller
 {
 
 	 public function __construct()
     {
-        // $this->user = "stars";
-        // $this->middleware('stars');
     }
 
 
@@ -28,37 +26,35 @@ class LoginController extends Controller
     }
 
 
-    Public function postStarsLogin(Request $request) {
-       
-            $rules = [
-                'email'=>'email|required|exists:users,email',
-                'password'=>'required'
+    Public function postStarsLogin(ULR $request) {
 
-                ];
+            $input = ['email'=>$request->email,'password'=>$request->password];
 
-            $input = ['email'=>$request->input('email'),'password'=>$request->input('password')];
 
-            $v = Validator::make($input,$rules);
+            try {
 
-            if($v->fails()){
-                return response()->json($v->messages());
+                if(!$token = JWTAuth::attempt($input)) {
+                return response()->json(['code'=>'error','response'=>"Email and Password combination Incorrect"]);
+                }
+            } catch(JWTException $e) {
+                return response()->json(['code'=>'error','response' => 'could_not_create_token'], 500);
             }
+            
+            $code = 'success';
+            $response = 'Login Successful';
+            $user = Auth::user();
 
-
-            if(!Auth::once($input)) {
-                return response()->json(['error'=>"Email and Password combination Incorrect"]);
-            }
-
-
-            if(!Auth::user()->star) {
-                return response()->json(['error'=>"You are not registered as a star"]);
-            } 
-
-            return response()->json(Auth::user());
+            return response()->json(compact('code','response','token','user'));
 
 
        
     	
+    }
+
+    Public function postLogout() {
+        Auth::logout();
+
+        return response()->json(['code'=>'success','response'=>'logged out']);
     }
 
     Public function postStarMakersLogin() {

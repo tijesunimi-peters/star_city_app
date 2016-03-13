@@ -16,14 +16,16 @@
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="{{asset('app/bower_components/angular-loading-bar/build/loading-bar.min.css')}}">
     <link rel="stylesheet" href="{{asset('app/bower_components/angular-ui-notification/dist/angular-ui-notification.min.css')}}">
-    <link rel="stylesheet" href="{{asset('app/styles/normalize.css')}}">
+    <link rel="stylesheet" href="{{--asset('app/styles/normalize.css')--}}">
     <link rel="stylesheet" href="{{asset('app/styles/flexboxgrid.min.css')}}">
-    <link rel="stylesheet" href="{{asset('styles/bootstrap/css/bootstrap.min.css')}}">
+    
+    <link rel="stylesheet" href="{{asset('app/styles/css/effect1.css')}}">
 
     <link rel="stylesheet" href="{{asset('app/styles/component.css')}}">
     <link rel="stylesheet" href="{{asset('app/styles/animate.min.css')}}">
     
     <link rel="stylesheet" href="{{asset('app/styles/CustomFileInputs/css/component.css')}}">
+    <link rel="stylesheet" href="{{asset('styles/bootstrap/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('app/styles/main.css')}}">
     
     <!-- endbuild -->

@@ -32,7 +32,11 @@ Route::get('/', function () {
 //     Route::post('authenticate', 'AuthenticateController@authenticate');
 // });
 
-Route::controller('api','ApiController');
-Route::controller('login','LoginController');
-Route::controller('registration','RegistrationController');
+Route::group(['middleware'=>'web'], function() {
+  Route::controller('api','ApiController');
+  Route::controller('login','LoginController');
+  Route::controller('registration','RegistrationController');
+});
+
+
 

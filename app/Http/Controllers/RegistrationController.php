@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\Http\Requests\ProfilePicRequest;
+use App\Http\Requests\CheckEmailRequest;
 use App\User;
 use App\Http\Controllers\Controller;
 
@@ -13,8 +15,8 @@ class RegistrationController extends Controller
     Private $file_name = null;
 
 
-    public function postStarCheckEmail(Request $r) {
-      // return dd($r)
+    public function postStarCheckEmail(CheckEmailRequest $r) {
+      
       if(!$r->input('email')) {
         return response()->json(['code'=>'error','response'=>'Email Index not set']);
       }
@@ -29,27 +31,11 @@ class RegistrationController extends Controller
     }
 
 
-    public function postValidatePhoto(Request $r) {
-      $rule = [
-        "file"=>'mimes:jpeg,jpg,png'
-      ];
+    public function postValidatePhoto(ProfilePicRequest $r) {
 
-      if($r->file('file')) {
-
-        $v = \Validator::make($r->all(), $rule);
-        if($v->fails()) {
-          return response()->json(['code'=>"error","response"=>"Photo should be in jpeg/jpg/png format"]);
-        }
-        
-        if(!$this->checkImageSize($r->file('file'))) {
+      if(!$this->checkImageSize($r->file('file'))) {
           return response()->json(['code'=>'error','response'=>"Pls make sure photo is about 1MB, width: 180px and Height: 180px"]);
         };
-
-
-
-      } else {
-        return response()->json(['code'=>"error","response"=>$r->file("file")]);
-      }
 
       if($this->photoMove($r->file('file'))) {
           return response()->json(['code'=>'success','response'=>'File Upload Successful','file_name'=>$this->file_name]);
@@ -68,7 +54,7 @@ class RegistrationController extends Controller
 
     Private function photoMove($file) {
       $sha = sha1($file->getClientOriginalName()).".".$file->getClientOriginalExtension();
-      if($file->move('passports',$sha)) {
+      if($file->move(base_path().'/passports',$sha)) {
           $this->file_name = $sha;
           return true;
         } else {
