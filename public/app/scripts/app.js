@@ -267,7 +267,8 @@ angular.module('StarCityApp', [
 .run(['Login', '$state', '$rootScope', '$location', '$cookies', function run(Login, $state, $rootScope, $location, $cookies) {
 
     $rootScope.$on('$stateChangeSuccess', function(event, next) 
-    {
+    {   
+        $rootScope.rootPage = next.name;
         if(next.authenticated && /(dashboard)/.test(next.name) ) 
         {
             if(!Login.getUser()) 
