@@ -28,6 +28,7 @@ angular.module('StarCityApp', [
             })
             .state('dashboard.dbIndex', {
                 authenticated: true,
+                // abstract: true,
                 url: '/index',
                 views: {
                     'DashboardView': {
@@ -35,6 +36,86 @@ angular.module('StarCityApp', [
                         controller: 'DbindexCtrl'
                     }
                 }
+            })
+            .state('dashboard.container', {
+                authenticated: true,
+                url: '/c',
+                abstract: true,
+                views: {
+                    'DashboardView': {
+                        template: "<div ui-view='DB-container'></div>"
+                    }
+                }
+            })
+            .state('dashboard.container.auditions',{
+                authenticated: true,
+                url: '/auditions',
+                views: {
+                    'DB-container': {
+                        template: "<div class='page-header'><h1>Auditions</h1><small>This is the auditions View</small></div>"
+                    }
+                }
+
+            })
+            .state('dashboard.container.studios',{
+                authenticated: true,
+                url: '/studios',
+                views: {
+                    'DB-container': {
+                        template: "<div class='page-header'><h1>Studio/Set</h1><small>This is the studio/set View</small></div>"
+                    }
+                }
+
+            })
+            .state('dashboard.container.blog',{
+                authenticated: true,
+                url: '/blog',
+                views: {
+                    'DB-container': {
+                        template: "<div class='page-header'><h1>Blog</h1><small>This is the blog View</small></div>"
+                    }
+                }
+
+            })
+            .state('dashboard.container.talent',{
+                authenticated: true,
+                url: '/talents',
+                views: {
+                    'DB-container': {
+                        template: "<div class='page-header'><h1>Talents</h1><small>This is the talents View</small></div>"
+                    }
+                }
+
+            })
+            .state('dashboard.container.jobs',{
+                authenticated: true,
+                url: '/jobs',
+                views: {
+                    'DB-container': {
+                        template: "<div class='page-header'><h1>Jobs</h1><small>This is the jobs View</small></div>"
+                    }
+                }
+
+            })
+            .state('dashboard.container.equipments',{
+                authenticated: true,
+                url: '/equipments',
+                views: {
+                    'DB-container': {
+                        template: "<div class='page-header'><h1>Equipment</h1><small>This is the equipment View</small></div>"
+                    }
+                }
+
+            })
+            .state('dashboard.container.profile',{
+                authenticated: true,
+                url: '/profile',
+                views: {
+                    'DB-container': {
+                        template: "<div class='page-header'><h1>Profile</h1><small>This is the Profile View</small></div>"
+                    }
+                }
+
             })
             .state('home', {
                 url: '/home',
