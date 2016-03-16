@@ -37,6 +37,6 @@ class CheckUserCommand extends Command
      */
     public function handle()
     {
-        //
+        print("YEz");
     }
 }

@@ -9,17 +9,12 @@ use App\Http\Requests\UsersLoginRequest as ULR;
 use App\Http\Controllers\Controller;
 use \Validator;
 use App\StarsModel;
-use \Auth;
+use Auth;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 
 class LoginController extends Controller
 {
-
-	 public function __construct()
-    {
-    }
-
 
     Public function getIndex() {
     	return response('Bad Request',200);
