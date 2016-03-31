@@ -105,7 +105,7 @@
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
     <script src="{{asset('app/scripts/app.js')}}"></script>
     <script src="{{asset('app/styles/CustomFileInputs/js/custom-file-input.js')}}"></script>
-    <!-- // <script src="scripts/controllers/main.js"></script> -->
+    <!-- // <script src="scripts/controllers/main.js"></script> hdjkjshksjhdkjhkjsjhjdhk -->
     <script src="{{asset('app/scripts/controllers/main.js')}}"></script>
     <script src="{{asset('app/scripts/controllers/home.js')}}"></script>
     <script src="{{asset('app/scripts/controllers/signin.js')}}"></script>
