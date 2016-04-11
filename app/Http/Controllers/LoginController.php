@@ -53,25 +53,6 @@ class LoginController extends Controller
     }
 
     Public function postStarMakersLogin() {
-    	// $rules = [
-    	// 'email'=>'email|required|exists:star_makers,email',
-    	// 'password'=>'required'
-
-    	// ];
-
-    	// $input = ['email'=>$request->input('email'),'password'=>$request->input('password')];
-
-    	// $v = Validator::make($input,$rules);
-
-    	// if($v->fails()){
-    	// 	return response()->json($v->messages());
-    	// }
-
-    	// if(!Auth::attempt($input)) {
-    	// 	return response()->json(['error'=>"Email and Password combination Incorrect"]);
-    	// }
-
-    	// return response()->json(Auth::user());
     }
 
 }

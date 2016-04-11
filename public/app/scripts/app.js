@@ -12,7 +12,7 @@ angular.module('StarCityApp', [
         'ngFileUpload',
         'angularFileUpload'
     ])
-    .config(function($stateProvider, $urlRouterProvider) {
+    .config(function($stateProvider, $urlRouterProvider, $locationProvider) {
 
 
         $stateProvider
@@ -257,7 +257,10 @@ angular.module('StarCityApp', [
                 controller: 'MainCtrl'
             });
 
+        // $locationProvider.html5Mode(true);            
+
     })
+
 
 
 

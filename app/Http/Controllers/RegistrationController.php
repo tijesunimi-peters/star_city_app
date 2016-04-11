@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Requests\ProfilePicRequest;
+use App\Http\Requests\StarRegistrationRequest as SRR;
+
 use App\Http\Requests\CheckEmailRequest;
 use App\User;
 use App\Http\Controllers\Controller;
@@ -81,5 +83,10 @@ class RegistrationController extends Controller
 
     Public function postPicUploader(Request $r) {
       
+    }
+
+    Public function postRegisterStar(SRR $r) {
+      $s = serialize($r->all());
+      return response()->json(unserialize($s));
     }
 }

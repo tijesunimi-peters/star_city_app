@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('StarCityApp')
-    .controller('PreloginCtrl', function($scope, $state, Registrationservice, Notification,$cacheFactory,FileUploader) {
+    .controller('PreloginCtrl', function($scope, $state, Registrationservice, Notification, $cacheFactory, FileUploader) {
         $scope.emailExists = false;
         $scope.addVideo = true;
         $scope.addAudio = true;
@@ -21,7 +21,6 @@ angular.module('StarCityApp')
             }
         });
 
-        $scope.picUpload.onWhenAdding
 
 
         var reg_data = $scope.registration_data = {
@@ -171,28 +170,28 @@ angular.module('StarCityApp')
 
 
         var checkEmail = function() {
-        	if(!$scope.registration_data.email) {
-        		$state.go('preLogin.stars-form-1');
+            if (!$scope.registration_data.email) {
+                $state.go('preLogin.stars-form-1');
 
-        	}
+            }
 
-        	
+
         }
 
         $scope.addVideo = function(videoInput) {
-            if(typeof videoInput !== 'undefined' && videoInput.length > 0) {
+            if (typeof videoInput !== 'undefined' && videoInput.length > 0) {
                 $scope.registration_data.videoLink3.push(videoInput);
-                if($scope.registration_data.videoLink3.length === 3) {
+                if ($scope.registration_data.videoLink3.length === 3) {
                     $scope.addVideo = false;
                 }
             }
-            
+
         }
 
         $scope.addAudio = function(audioInput) {
-            if(typeof audioInput !== 'undefined' && audioInput.length > 0) {
+            if (typeof audioInput !== 'undefined' && audioInput.length > 0) {
                 $scope.registration_data.audioLink3.push(audioInput);
-                if($scope.registration_data.videoLink3.length === 3) {
+                if ($scope.registration_data.videoLink3.length === 3) {
                     $scope.addAudio = false;
                 }
 
@@ -201,15 +200,15 @@ angular.module('StarCityApp')
 
         $scope.pushData = function(next) {
 
-        	if(!$scope.registration_data.email) {
-        		Notification.error({
-                        message: 'Please fill in your Email',
-                        positionX: 'left',
-                        positionY: 'bottom'
-                    });
-        		$state.go('preLogin.stars-form-1');
-        		return;
-        	}
+            if (!$scope.registration_data.email) {
+                Notification.error({
+                    message: 'Please fill in your Email',
+                    positionX: 'left',
+                    positionY: 'bottom'
+                });
+                $state.go('preLogin.stars-form-1');
+                return;
+            }
             switch (next) {
                 case 'page2':
                     // $scope.submit();
@@ -261,52 +260,63 @@ angular.module('StarCityApp')
         }
 
         $scope.page3 = function() {
-            if($scope.registration_data.password !== $scope.registration_data.confirm_password) {
-                Notification.error({message: "Password Does not Match",positionY: "bottom",positionX: "left"});
+            if ($scope.registration_data.password !== $scope.registration_data.confirm_password) {
+                Notification.error({ message: "Password Does not Match", positionY: "bottom", positionX: "left" });
             } else {
                 $state.go('preLogin.stars-form-3');
             }
-            
+
         }
 
-       $scope.check_password = function() {
-       	 if((typeof $scope.registration_data.password != 'undefined') && (typeof $scope.registration_data.confirm_password != 'undefined')) {
-            if($scope.registration_data.password != $scope.registration_data.confirm_password) {
-		        Notification.error({message: "Password Does not Match",positionY: "bottom",positionX: "left"});
-                return false;
-       	 	} else {
-       	 		return true;
-       	 	}
-       	 }
-       }
-
-
-       $scope.submit = function() {
-        console.log($scope.registration_data);
-       }
-
-       $scope.checkFile = function(photo) {
-        Registrationservice.checkPhoto(photo).then(function(res) {
-            if(res.data.code === 'error') {
-                Notification.error({
-                    message: res.data.response,
-                    positionY: 'bottom',
-                    positionX: 'left'
-                });
+        $scope.check_password = function() {
+            if ((typeof $scope.registration_data.password != 'undefined') && (typeof $scope.registration_data.confirm_password != 'undefined')) {
+                if ($scope.registration_data.password != $scope.registration_data.confirm_password) {
+                    Notification.error({ message: "Password Does not Match", positionY: "bottom", positionX: "left" });
+                    return false;
+                } else {
+                    return true;
+                }
             }
-            if(res.data.code === 'success') {
-                $scope.canUpload = true;
-                $scope.image = res.data.file_name;
-                Notification.success({
-                    message: res.data.response,
-                    positionY: 'bottom',
-                    positionX: 'left'
-                });
+        }
+
+
+        $scope.submit = function() {
+            if (picUpload.queue.length !== 0) {
+                picUpload.uploadAll();
+                picUpload.onCompleteAll = function() {
+                    console.info('Complete Upload');
+                };
             }
-        });
-      
-        
-       }
+
+
+            Registrationservice.submit($scope.registration_data).then(function(res) {
+                console.log(res);
+            })
+
+        }
+
+        $scope.checkFile = function(photo) {
+            Registrationservice.checkPhoto(photo).then(function(res) {
+                if (res.data.code === 'error') {
+                    Notification.error({
+                        message: res.data.response,
+                        positionY: 'bottom',
+                        positionX: 'left'
+                    });
+                }
+                if (res.data.code === 'success') {
+                    $scope.canUpload = true;
+                    $scope.image = res.data.file_name;
+                    Notification.success({
+                        message: res.data.response,
+                        positionY: 'bottom',
+                        positionX: 'left'
+                    });
+                }
+            });
+
+
+        }
 
 
         $scope.show = function() {
