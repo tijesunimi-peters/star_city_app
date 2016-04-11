@@ -22,7 +22,7 @@ class Stars extends Model implements AuthenticatableContract, CanResetPasswordCo
      * @var array
      */
     protected $fillable = [
-        'email', 'password',
+        'first_name', 'last_name','sex','city','state','address','image'
     ];
 
     /**

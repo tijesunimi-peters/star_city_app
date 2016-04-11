@@ -270,12 +270,25 @@ angular.module('StarCityApp')
 
         $scope.check_password = function() {
             if ((typeof $scope.registration_data.password != 'undefined') && (typeof $scope.registration_data.confirm_password != 'undefined')) {
+                if($scope.registration_data.password.length < 8) {
+                    Notification.error({ message: "Password must be at least 8 in length", positionY: "bottom", positionX: "left" });
+                    return false;
+                }
                 if ($scope.registration_data.password != $scope.registration_data.confirm_password) {
                     Notification.error({ message: "Password Does not Match", positionY: "bottom", positionX: "left" });
+                    return false;
+                } 
+
+                var regularExpression  = /[!@#$%^&*]{1}/;
+                if(!regularExpression.test($scope.registration_data.password)) {
+                    Notification.error({ message: "Password must contain at least one character", positionY: "bottom", positionX: "left" });
                     return false;
                 } else {
                     return true;
                 }
+          
+
+
             }
         }
 
@@ -306,7 +319,7 @@ angular.module('StarCityApp')
                 }
                 if (res.data.code === 'success') {
                     $scope.canUpload = true;
-                    $scope.image = res.data.file_name;
+                    $scope.registration_data.profile_pic = $scope.image = res.data.file_name;
                     Notification.success({
                         message: res.data.response,
                         positionY: 'bottom',

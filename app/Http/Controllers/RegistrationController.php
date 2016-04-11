@@ -86,7 +86,16 @@ class RegistrationController extends Controller
     }
 
     Public function postRegisterStar(SRR $r) {
-      $s = serialize($r->all());
-      return response()->json(unserialize($s));
+      $star = new \App\Star;
+
+      $star->first_name = $r->first_name;
+      $star->last_name = $r->last_name;
+      $star->address = isset($r->address) ? $r->address : "";
+      $star->sex = $r->sex['value'];
+      $star->city = $r->state['value'];
+      $star->state = $r->state['value'];
+      $star->image = $r->profile_pic;
+
+      // $user = \User::create()
     }
 }

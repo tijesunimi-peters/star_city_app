@@ -28,7 +28,7 @@ class StarRegistrationRequest extends Request
             'first_name'=>'required',
             'last_name'=>'required',
             'city'=>'required',
-            'password'=>'required',
+            // 'password'=>'required',
             'role'=>'required',
             'sex'=>'required',
             'state'=>'required'
