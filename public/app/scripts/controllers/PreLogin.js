@@ -348,7 +348,7 @@ angular.module('StarCityApp')
         $scope.fbReg = function() {
             Registrationservice.fbReg().then(function(res) {
                 console.log(res);
-            });
+            })
         }
 
     });

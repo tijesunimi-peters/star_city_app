@@ -59,12 +59,14 @@ angular.module('StarCityApp')
             FB.login(function(response) {
                 if (response.authResponse) {
                     console.log('Welcome!  Fetching your information.... ');
-                    FB.api('/me', 'GET', { "fields": "id,name,birthday,first_name,last_name,gender,quotes,email" }, function(res) {
+                    FB.api('/me', 'GET', { "fields": "id,name,birthday,first_name,last_name,gender,quotes,email,picture,location" }, function(res) {
                         if (res.error || !res) {
                             q.reject('No Response');
                         } else {
                             res.accessToken = FB.getAuthResponse().accessToken;
-                            q.resolve(res);
+                            $http.post('index.php/registration/fb-registration',res).then(function(resData) {
+                                q.resolve(resData);
+                            });
                         }
                     });
                 } else {
