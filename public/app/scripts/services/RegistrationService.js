@@ -46,12 +46,33 @@ angular.module('StarCityApp')
         _.submit = function(regData) {
             var d = $q.defer();
             $http.post('index.php/registration/register-star', regData).then(function(res) {
-                d.resolve(res);
+                d.resolve(res.data);
             }).catch(function(e) {
                 d.reject(e);
             });
 
             return d.promise;
+        }
+
+        _.fbReg = function() {
+             var q = $q.defer();
+            FB.login(function(response) {
+                if (response.authResponse) {
+                    console.log('Welcome!  Fetching your information.... ');
+                    FB.api('/me', 'GET', { "fields": "id,name,birthday,first_name,last_name,gender,quotes,email" }, function(res) {
+                        if (res.error || !res) {
+                            q.reject('No Response');
+                        } else {
+                            res.accessToken = FB.getAuthResponse().accessToken;
+                            q.resolve(res);
+                        }
+                    });
+                } else {
+                    console.log('User cancelled login or did not fully authorize.');
+                }
+            });
+
+            return q.promise;
         }
 
 

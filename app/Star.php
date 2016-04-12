@@ -11,7 +11,7 @@ use Illuminate\Contracts\Auth\Guard;
 
 
 
-class Stars extends Model implements AuthenticatableContract, CanResetPasswordContract
+class Star extends Model implements AuthenticatableContract, CanResetPasswordContract
 {
 	use Authenticatable, CanResetPassword;
     protected $table = 'stars';
@@ -56,6 +56,10 @@ class Stars extends Model implements AuthenticatableContract, CanResetPasswordCo
 
     public function likes($id) {
         // all the likes to a star
+    }
+
+    public function user() {
+        return $this->belongsTo('\App\User','id','user_id');
     }
 
     

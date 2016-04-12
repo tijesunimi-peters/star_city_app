@@ -15,9 +15,14 @@ class StarRegistrationProvider extends ServiceProvider
      */
     public function boot()
     {
-        Star::creating(function($star) {
-            $star->star_id = mt_rand(1000,9999);
+        User::saved(function($user) {
+            \Session::put('newUserId', $user->id);
         });
+
+        Star::creating(function($star) {
+            $star->user_id = \Session::get('newUserId');
+        });
+
 
 
     }

@@ -1,10 +1,6 @@
 'use strict';
 
 angular.module('StarCityApp')
-  .controller('DashboardCtrl', function ($scope) {
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+  .controller('DashboardCtrl', function ($scope,$window) {
+    $scope.user = JSON.parse($window.sessionStorage.getItem('userData'));
   });

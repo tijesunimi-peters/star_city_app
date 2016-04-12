@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Requests\UsersLoginRequest as ULR;
 use App\Http\Controllers\Controller;
 use \Validator;
+use App\User;
 use App\StarsModel;
 use Auth;
 use JWTAuth;
@@ -37,9 +38,11 @@ class LoginController extends Controller
             
             $code = 'success';
             $response = 'Login Successful';
+            $profile = User::find(Auth::user()->id)->starProfile;
             $user = Auth::user();
+            $user->roles = unserialize($user->roles);
 
-            return response()->json(compact('code','response','token','user'));
+            return response()->json(compact('code','response','token','user','profile'));
 
 
        

@@ -10,6 +10,7 @@ use App\Http\Requests\StarRegistrationRequest as SRR;
 
 use App\Http\Requests\CheckEmailRequest;
 use App\User;
+use App\Star;
 use App\Http\Controllers\Controller;
 
 class RegistrationController extends Controller
@@ -86,16 +87,37 @@ class RegistrationController extends Controller
     }
 
     Public function postRegisterStar(SRR $r) {
-      $star = new \App\Star;
+      $star = new Star;
 
       $star->first_name = $r->first_name;
       $star->last_name = $r->last_name;
       $star->address = isset($r->address) ? $r->address : "";
-      $star->sex = $r->sex['value'];
-      $star->city = $r->state['value'];
-      $star->state = $r->state['value'];
+      $star->sex = $r->input('sex')['value'];
+      $star->city = $r->input('city');
+      $star->state = $r->input('state')['name'];
       $star->image = $r->profile_pic;
+      $star->bio = $r->bio;
 
-      // $user = \User::create()
+      $newUser = new User;
+
+      $newUser->name = $r->username;
+      $newUser->email = $em = $r->email;
+      $newUser->password = \Hash::make($r->password);
+      $newUser->star = 1;
+      $newUser->roles = serialize($r->role);
+
+      if($newUser->save()) {
+        $user = User::where('email','=',$em)->first();
+        if($user->starProfile()->save($star)) {
+          return response()->json(['code'=>'success','response'=>'Registration Successful']);
+        } else {
+          return response()->json(['code'=>'error','response'=>'Registration Failed']);
+        } 
+      } else {
+        return response()->json(['code'=>'error','response'=>'Registration Failed']);
+      }
+
+
+
     }
 }

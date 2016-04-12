@@ -23,4 +23,12 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    Public function starProfile() {
+        return $this->hasOne('\App\Star','user_id','id');
+    }
+
+    public function starMaker() {
+        return $this->hasOne('\App\StarMakers');
+    }
 }

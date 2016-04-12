@@ -270,23 +270,23 @@ angular.module('StarCityApp')
 
         $scope.check_password = function() {
             if ((typeof $scope.registration_data.password != 'undefined') && (typeof $scope.registration_data.confirm_password != 'undefined')) {
-                if($scope.registration_data.password.length < 8) {
+                if ($scope.registration_data.password.length < 8) {
                     Notification.error({ message: "Password must be at least 8 in length", positionY: "bottom", positionX: "left" });
                     return false;
                 }
                 if ($scope.registration_data.password != $scope.registration_data.confirm_password) {
                     Notification.error({ message: "Password Does not Match", positionY: "bottom", positionX: "left" });
                     return false;
-                } 
+                }
 
-                var regularExpression  = /[!@#$%^&*]{1}/;
-                if(!regularExpression.test($scope.registration_data.password)) {
+                var regularExpression = /[!@#$%^&*]{1}/;
+                if (!regularExpression.test($scope.registration_data.password)) {
                     Notification.error({ message: "Password must contain at least one character", positionY: "bottom", positionX: "left" });
                     return false;
                 } else {
                     return true;
                 }
-          
+
 
 
             }
@@ -303,7 +303,20 @@ angular.module('StarCityApp')
 
 
             Registrationservice.submit($scope.registration_data).then(function(res) {
-                console.log(res);
+                if (res.code === 'success') {
+                    Notification.success({
+                        'message': 'Pls Sign in with your email and password',
+                        'positionY': 'bottom',
+                        'positionX': 'left'
+                    });
+                    $state.go('preLogin.stars-signin');
+                } else {
+                    Notification.error({
+                        'message': res.response,
+                        'positionY': 'bottom',
+                        'positionX': 'left'
+                    });
+                }
             })
 
         }
@@ -332,8 +345,10 @@ angular.module('StarCityApp')
         }
 
 
-        $scope.show = function() {
-            console.log($scope.picUpload);
+        $scope.fbReg = function() {
+            Registrationservice.fbReg().then(function(res) {
+                console.log(res);
+            });
         }
 
     });

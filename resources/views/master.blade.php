@@ -7,7 +7,7 @@
 <!--<![endif]-->
 
 <head>
-    <!-- <base href="http://localhost/laravel-star-city/star_city/public/"> -->
+    <!-- <base href="/laravel-star-city/star_city/public/"> -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Star City Hq</title>

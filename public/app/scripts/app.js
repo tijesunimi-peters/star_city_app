@@ -26,7 +26,7 @@ angular.module('StarCityApp', [
             })
             .state('dashboard.dbIndex', {
                 authenticated: true,
-                url: '/index',
+                url: '/index/:id',
                 views: {
                     'DashboardView': {
                         templateUrl: 'app/views/dbIndex.html',

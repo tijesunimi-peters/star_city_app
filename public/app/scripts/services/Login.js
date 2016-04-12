@@ -4,10 +4,16 @@ angular.module("StarCityApp")
     .service('Login', function($http, $cookies, $timeout, $q, $window) {
 
         var userModel = {};
+        var user = {};
 
         userModel.serverCall = function(data) {
             var deferred = $q.defer();
             $http.post('index.php/login/stars-login/', data).then(function(res) {
+                user = res.data.profile;
+                user.email = res.data.user.email;
+                user.username = res.data.user.name;
+                user.roles = res.data.user.roles;
+                $window.sessionStorage.setItem('userData', JSON.stringify(user));
                 deferred.resolve(res)
             }).catch(function(e) {
                 deferred.reject(e);
@@ -19,8 +25,6 @@ angular.module("StarCityApp")
 
         userModel.getUser = function() {
             var user = $window.sessionStorage.getItem('token');
-
-
             if (user) {
                 return true;
             } else {
@@ -56,6 +60,7 @@ angular.module("StarCityApp")
         userModel.logout = function() {
             var d = $q.defer();
             $http.post('index.php/login/logout').then(function(res) {
+                $window.sessionStorage.removeItem('userData');
                 d.resolve(res);
             }).catch(function(e) {
                 d.reject(e);
@@ -63,6 +68,8 @@ angular.module("StarCityApp")
 
             return d.promise;
         }
+
+
 
         return userModel;
 

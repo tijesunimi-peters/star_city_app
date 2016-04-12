@@ -43,7 +43,7 @@ angular.module('StarCityApp')
                         $window.sessionStorage.setItem('token', result.data.token);
 
                         $timeout(function() {
-                            $state.go('dashboard.dbIndex');
+                            $state.go('dashboard.dbIndex',{id: result.data.user.id});
                         }, 1000);
                     }
                 }
@@ -60,7 +60,6 @@ angular.module('StarCityApp')
         $scope.starsLogout = function() {
             $window.sessionStorage.clear();
             Login.logout().then(function(res) {
-                // console.log(res);
                 $state.go('preLogin.stars-signin');
             });
         }
