@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class PasswordResetTable extends Migration
+class UpdatePRM extends Migration
 {
     /**
      * Run the migrations.
@@ -12,7 +12,9 @@ class PasswordResetTable extends Migration
      */
     public function up()
     {
-        //
+        Schema::table('password_resets', function(Blueprint $table) {
+            $table->timestamp('updated_at');
+        });
     }
 
     /**
@@ -22,6 +24,6 @@ class PasswordResetTable extends Migration
      */
     public function down()
     {
-        //
+        
     }
 }

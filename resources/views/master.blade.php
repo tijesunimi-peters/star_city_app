@@ -118,10 +118,12 @@
     <script src="{{asset('app/scripts/controllers/PreLogin.js')}}"></script>
     <script src="{{asset('app/scripts/controllers/signup-form.js')}}"></script>
     <script src="{{asset('app/scripts/controllers/AuthController.js')}}"></script>
+    <script src="{{asset('app/scripts/controllers/PasswordResetController.js')}}"></script>
     <script src="{{asset('app/scripts/services/Login.js')}}">
     </script>
     <script src="{{asset('app/scripts/services/RegistrationService.js')}}">
     </script>
+    <script src="{{asset('app/scripts/services/PasswordResetService.js')}}"></script>
     <!-- endbuild -->
    
    

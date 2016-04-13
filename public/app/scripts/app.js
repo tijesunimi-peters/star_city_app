@@ -18,7 +18,7 @@ angular.module('StarCityApp', [
         $stateProvider
 
             .state('dashboard', {
-                url: "/dashboard",
+                url: "/dashboard/:id",
                 abstract: true,
                 templateUrl: 'app/views/dashboard.html',
                 controller: 'DashboardCtrl',
@@ -26,7 +26,7 @@ angular.module('StarCityApp', [
             })
             .state('dashboard.dbIndex', {
                 authenticated: true,
-                url: '/index/:id',
+                url: '/index',
                 views: {
                     'DashboardView': {
                         templateUrl: 'app/views/dbIndex.html',
@@ -113,6 +113,27 @@ angular.module('StarCityApp', [
                     }
                 }
 
+            })
+
+            .state('dashboard.container.password_reset',{
+                authenticated: true,
+                url: '/password_reset/verify-email',
+                views: {
+                    'DB-container': {
+                        templateUrl: "app/views/password_reset/index.html",
+                        controller: "PasswordResetController"
+                    }
+                }
+            })
+            .state('dashboard.container.change_password',{
+                authenticated: true,
+                url: '/password_reset/change-password',
+                views: {
+                    'DB-container': {
+                        templateUrl: "app/views/password_reset/new_password.html",
+                        controller: "PasswordResetController"
+                    }
+                }
             })
             .state('home', {
                 url: '/home',
@@ -264,10 +285,11 @@ angular.module('StarCityApp', [
 
 
 
-.run(['Login', '$state', '$rootScope', '$location', '$cookies', function run(Login, $state, $rootScope, $location, $cookies) {
+.run(['$window','Login', '$state', '$rootScope', '$location', '$cookies', function run($window,Login, $state, $rootScope, $location, $cookies) {
 
     $rootScope.$on('$stateChangeSuccess', function(event, next) 
     {   
+        var user = $window.sessionStorage.getItem('userData');
         $rootScope.rootPage = next.name;
         if(next.authenticated && /(dashboard)/.test(next.name) ) 
         {
@@ -277,12 +299,13 @@ angular.module('StarCityApp', [
             }
         } 
 
-        if(!next.authenticated || typeof next.authenticated === 'undefined') 
+        if((!next.authenticated || typeof next.authenticated === 'undefined') && typeof user !== 'undefined') 
         {
             
             if(Login.getUser() && !/(dashboard)/.test(next.name)) 
             {
-                $state.go('dashboard.dbIndex');
+
+                $state.go('dashboard.dbIndex',{id: user.id});
             }
         }
 

@@ -36,6 +36,7 @@ Route::group(['middleware'=>'web'], function() {
   Route::controller('api','ApiController');
   Route::controller('login','LoginController');
   Route::controller('registration','RegistrationController');
+  Route::controller('password_reset','PasswordResetController');
 });
 
 
