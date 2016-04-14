@@ -10,7 +10,8 @@
         "tymon/jwt-auth": "^0.5.6",
         "lcobucci/jwt": "^3.1",
         "sarav/laravel-multiauth": "^0.0.7",
-        "kbwebs/multiauth": "^1.0"
+        "kbwebs/multiauth": "^1.0",
+        "guzzlehttp/guzzle": "^6.2"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

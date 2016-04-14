@@ -8,6 +8,8 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\User;
 use App\PasswordResetModel as PRM;
+use Event;
+use App\Events\PwdResetSaved as PRSEvent;
 
 class PasswordResetController extends Controller
 {
@@ -31,7 +33,13 @@ class PasswordResetController extends Controller
       $model->created_at = strftime('%Y-%m-%d %H:%M:%S',strtotime('now'));
 
       if($model->save()) {
+        $pr = PRM::find($model->id);
+        event(new PRSEvent($pr));
         return response()->json(['code'=>1]);
       }
+    }
+
+    Public function getConfirmPassword($token) {
+      return $token;
     }
 }

@@ -1,0 +1,1 @@
+<a href="{{ route('confirm_password',['token'=>$pwd->token]) }}">Click to Confirm Password</a>

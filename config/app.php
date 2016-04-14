@@ -158,6 +158,10 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\StarsProvider::class,
 
+        /*
+         * My Providers
+         */
+
 
     ],
 
