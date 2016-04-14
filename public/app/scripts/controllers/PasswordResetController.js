@@ -10,7 +10,6 @@ angular.module("StarCityApp")
       return;
     }
 
-    console.log($scope.password_reset);
 
     PasswordResetService.checkEmail($scope.password_reset).then(function(res) {
       if(res.code === 1) {
@@ -36,11 +35,12 @@ angular.module("StarCityApp")
     }
 
     $scope.password_reset.email = user.email;
-    
+    $scope.password_reset.user_id = user.user_id;
+
     PasswordResetService.changePassword($scope.password_reset).then(function(res) {
       if(res.code === 1) {
         Notification.success({message:'Check your mail for a link to confirm password change',positionY:'bottom',positionX:'left'});
-        $state.go('dashboard.container.profile',{id: user.id});
+        $window.sessionStorage.removeItem('userData');
       } else {
         Notification.error({message:'Password Change not Successful',positionX: 'left',positionY:'bottom'});
         return;

@@ -1,1 +1,2 @@
-<a href="{{ route('confirm_password',['token'=>$pwd->token]) }}">Click to Confirm Password</a>
+<!-- ,['id'=>$pwd->id,'token'=>urlencode($pwd->token)] -->
+<a href="{{ url('http://localhost/laravel-star-city/star_city/public/index.php/password_reset/confirm-password?id='.$pwd->id.'&token='.$pwd->token) }}">Click to Confirm Password</a>

@@ -16,6 +16,9 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\PwdResetSaved' => [
             'App\Listeners\PwdResetListener',
         ],
+        'App\Events\PasswordConfirmed' => [
+            'App\Listeners\PwdConfirmedListener',
+        ],
     ];
 
     /**

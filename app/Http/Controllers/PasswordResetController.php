@@ -10,6 +10,7 @@ use App\User;
 use App\PasswordResetModel as PRM;
 use Event;
 use App\Events\PwdResetSaved as PRSEvent;
+use App\Events\PasswordConfirmed as PCEvent;
 
 class PasswordResetController extends Controller
 {
@@ -28,6 +29,7 @@ class PasswordResetController extends Controller
     Public function postSavePassword(Request $r) {
       $model = new PRM;
 
+      $model->user_id = $r->user_id;
       $model->email = $r->email;
       $model->token = \Hash::make($r->password);
       $model->created_at = strftime('%Y-%m-%d %H:%M:%S',strtotime('now'));
@@ -39,7 +41,24 @@ class PasswordResetController extends Controller
       }
     }
 
-    Public function getConfirmPassword($token) {
-      return $token;
+    Public function getConfirmPassword(Request $r) {
+      $token = urldecode($r->token);
+      $id = $r->id;
+
+      if($pwd = PRM::find($id)) {
+        $deadline = strtotime($pwd->created_at) + 86400;
+        $pageOpenTime = strtotime('now');
+
+        if(abs($deadline - $pageOpenTime) >= 86400) {
+          return "Password Token expired";
+        } 
+
+        event(new PCEvent($pwd));
+        \Auth::logout();
+        return redirect('/');
+
+      } else {
+        return "Password Change Process Terminated";
+      }
     }
 }
