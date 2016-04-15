@@ -87,6 +87,7 @@ class RegistrationController extends Controller
     }
 
     Public function postRegisterStar(SRR $r) {
+      // return $r->all();
       $star = new Star;
 
       $star->first_name = $r->first_name;

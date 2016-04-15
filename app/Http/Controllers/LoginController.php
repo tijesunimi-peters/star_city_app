@@ -59,6 +59,25 @@ class LoginController extends Controller
     }
 
     Public function postFbSignin(Request $r) {
+        if($user = User::where("access_token",'=',$r->access_token)->first()) {
+            $input = ['email'=>$user->email,'sub'=>$user->id];
+            $code = 'success';
+            $response = 'Login Successful';
+            $profile = User::find($user->id)->starProfile;
+            $user->roles = unserialize($user->roles);
+            $payload = \JWTFactory::make($input);
+            $encoded = JWTAuth::encode($payload);
+            JWTAuth::setToken($encoded->get());
+            $token = JWTAuth::getToken();
+            $token = (string) $token;
+
+            return response()->json(compact('code','response','token','user','profile'));
+        } else {
+            $response = "Something went wrong; Pls try again";
+            $code = "error";
+
+            return response()->json(compact('code','response'));
+        }
 
     }
 

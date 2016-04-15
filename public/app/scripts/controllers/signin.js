@@ -46,8 +46,9 @@ angular.module('StarCityApp')
                         user.roles = result.data.user.roles;
                         user.token = result.data.token;
                         $window.sessionStorage.setItem('userData', JSON.stringify(user));
+                        $window.location.reload();
 
-                        $state.go('dashboard.dbIndex',{id: result.data.user.id});
+                        // $state.go('dashboard.dbIndex', { id: result.data.user.id });
                     }
                 }
 
@@ -69,11 +70,27 @@ angular.module('StarCityApp')
 
         $scope.starFBSignin = function() {
             Login.starFbLogin().then(function(res) {
-                console.log(res);
-                if(res.accessToken) {
-                    var data = {'email':res.email,'password':res.accessToken};
-                    Login.fbSignin(data).then(function(res) {
-                        console.log(res);
+                if (res.accessToken) {
+                    var data = { 'email': res.email, 'access_token': res.id };
+                    Login.fbSignin(data).then(function(result) {
+                        if (result.data.code === "success") {
+                            Notification.success({ message: result.data.response,positionY:'bottom',positionX:'left'});
+
+                            var user = {};
+                            user = result.data.profile;
+                            user.email = result.data.user.email;
+                            user.username = result.data.user.name;
+                            user.roles = result.data.user.roles;
+                            user.token = result.data.token;
+                            $window.sessionStorage.setItem('userData', JSON.stringify(user));
+                            // console.log($state);
+                            // $state.reload('dashboard.dbIndex', { id: result.data.user.id });
+                            $window.location.reload();
+
+                        } else {
+                            Notification.success({ message: result.data.response,positionY:'bottom',positionX:'left'});
+
+                        }
                     });
 
                 } else {
@@ -85,4 +102,3 @@ angular.module('StarCityApp')
 
 
     });
-

@@ -355,7 +355,7 @@ angular.module('StarCityApp')
                 $scope.registration_data.DOB = format.join("-");
                 $scope.registration_data.first_name = res.first_name;
                 $scope.registration_data.last_name = res.last_name;
-                $scope.registration_data.access_token = res.accessToken;
+                $scope.registration_data.access_token = res.id;
 
                 if(res.gender === 'male') {
                     $scope.registration_data.sex = $scope.sexOptions[0];
@@ -363,6 +363,8 @@ angular.module('StarCityApp')
                     $scope.registration_data.sex = $scope.sexOptions[1];
                 }
                 $scope.registration_data.city = res.location.name;
+                console.log($scope.registration_data);
+                return;
                 $scope.pushData('page2');
             });
         }
