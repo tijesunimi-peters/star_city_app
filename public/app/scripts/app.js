@@ -44,7 +44,7 @@ angular.module('StarCityApp', [
                     }
                 }
             })
-            .state('dashboard.container.auditions',{
+            .state('dashboard.container.auditions', {
                 authenticated: true,
                 url: '/auditions',
                 views: {
@@ -54,7 +54,7 @@ angular.module('StarCityApp', [
                 }
 
             })
-            .state('dashboard.container.studios',{
+            .state('dashboard.container.studios', {
                 authenticated: true,
                 url: '/studios',
                 views: {
@@ -64,7 +64,7 @@ angular.module('StarCityApp', [
                 }
 
             })
-            .state('dashboard.container.blog',{
+            .state('dashboard.container.blog', {
                 authenticated: true,
                 url: '/blog',
                 views: {
@@ -74,7 +74,7 @@ angular.module('StarCityApp', [
                 }
 
             })
-            .state('dashboard.container.talent',{
+            .state('dashboard.container.talent', {
                 authenticated: true,
                 url: '/talents',
                 views: {
@@ -84,7 +84,7 @@ angular.module('StarCityApp', [
                 }
 
             })
-            .state('dashboard.container.jobs',{
+            .state('dashboard.container.jobs', {
                 authenticated: true,
                 url: '/jobs',
                 views: {
@@ -94,7 +94,7 @@ angular.module('StarCityApp', [
                 }
 
             })
-            .state('dashboard.container.equipments',{
+            .state('dashboard.container.equipments', {
                 authenticated: true,
                 url: '/equipments',
                 views: {
@@ -104,7 +104,7 @@ angular.module('StarCityApp', [
                 }
 
             })
-            .state('dashboard.container.profile',{
+            .state('dashboard.container.profile', {
                 authenticated: true,
                 url: '/profile',
                 views: {
@@ -115,7 +115,7 @@ angular.module('StarCityApp', [
 
             })
 
-            .state('dashboard.container.password_reset',{
+        .state('dashboard.container.password_reset', {
                 authenticated: true,
                 url: '/password_reset/verify-email',
                 views: {
@@ -125,7 +125,7 @@ angular.module('StarCityApp', [
                     }
                 }
             })
-            .state('dashboard.container.change_password',{
+            .state('dashboard.container.change_password', {
                 authenticated: true,
                 url: '/password_reset/change-password',
                 views: {
@@ -282,30 +282,31 @@ angular.module('StarCityApp', [
 
     })
 
+.config(function($httpProvider) {
+    $httpProvider.interceptors.push('jwtInterceptor');
+})
 
 
 
-.run(['$window','Login', '$state', '$rootScope', '$location', '$cookies', function run($window,Login, $state, $rootScope, $location, $cookies) {
 
-    $rootScope.$on('$stateChangeSuccess', function(event, next) 
-    {   
-        var user = $window.sessionStorage.getItem('userData');
+.run(['$window', 'Login', '$state', '$rootScope', function run($window, Login, $state, $rootScope) {
+
+    $rootScope.$on('$stateChangeSuccess', function(event, next) {
+        var user = JSON.parse($window.sessionStorage.getItem('userData'));
         $rootScope.rootPage = next.name;
-        if(next.authenticated && /(dashboard)/.test(next.name) ) 
-        {
-            if(!Login.getUser()) 
-            {
+
+        if (next.authenticated && /(dashboard)/.test(next.name)) {
+            if (!Login.getUser()) {
                 $state.go('preLogin.signin.view');
             }
-        } 
 
-        if((!next.authenticated || typeof next.authenticated === 'undefined') && typeof user !== 'undefined') 
-        {
-            
-            if(Login.getUser() && !/(dashboard)/.test(next.name)) 
-            {
+        }
 
-                $state.go('dashboard.dbIndex',{id: user.id});
+        if ((!next.authenticated || typeof next.authenticated === 'undefined') && typeof user !== 'undefined') {
+
+            if (Login.getUser() && !/(dashboard)/.test(next.name)) {
+
+                $state.go('dashboard.dbIndex', { id: user.id });
             }
         }
 
@@ -314,7 +315,9 @@ angular.module('StarCityApp', [
 
 
 
+
 }])
+
 
 
 .directive('ngThumb', function($window) {

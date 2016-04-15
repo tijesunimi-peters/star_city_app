@@ -64,9 +64,7 @@ angular.module('StarCityApp')
                             q.reject('No Response');
                         } else {
                             res.accessToken = FB.getAuthResponse().accessToken;
-                            $http.post('index.php/registration/fb-registration',res).then(function(resData) {
-                                q.resolve(resData);
-                            });
+                            q.resolve(res);
                         }
                     });
                 } else {

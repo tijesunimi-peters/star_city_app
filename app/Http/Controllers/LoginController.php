@@ -25,7 +25,7 @@ class LoginController extends Controller
     Public function postStarsLogin(ULR $request) {
 
             $input = ['email'=>$request->email,'password'=>$request->password];
-
+            
 
             try {
 
@@ -56,6 +56,10 @@ class LoginController extends Controller
     }
 
     Public function postStarMakersLogin() {
+    }
+
+    Public function postFbSignin(Request $r) {
+
     }
 
 }

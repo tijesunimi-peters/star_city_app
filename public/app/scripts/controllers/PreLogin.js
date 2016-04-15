@@ -346,9 +346,25 @@ angular.module('StarCityApp')
 
 
         $scope.fbReg = function() {
+            var data;
             Registrationservice.fbReg().then(function(res) {
                 console.log(res);
-            })
+                $scope.registration_data.email = res.email;
+                var a = res.birthday.split('/').reverse();
+                var format = [a[0],a[2],a[1]];
+                $scope.registration_data.DOB = format.join("-");
+                $scope.registration_data.first_name = res.first_name;
+                $scope.registration_data.last_name = res.last_name;
+                $scope.registration_data.access_token = res.accessToken;
+
+                if(res.gender === 'male') {
+                    $scope.registration_data.sex = $scope.sexOptions[0];
+                } else {
+                    $scope.registration_data.sex = $scope.sexOptions[1];
+                }
+                $scope.registration_data.city = res.location.name;
+                $scope.pushData('page2');
+            });
         }
 
     });

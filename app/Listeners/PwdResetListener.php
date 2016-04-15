@@ -6,6 +6,7 @@ use App\Events\PwdResetSaved;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Mail;
+use JWTAuth;
 
 class PwdResetListener implements ShouldQueue
 {
@@ -30,7 +31,7 @@ class PwdResetListener implements ShouldQueue
     public function handle(PwdResetSaved $event)
     {
         $pwd = $event->pwd_reset;
-        Mail::queue('emails.password_reset', ['pwd'=>$pwd], function($m) use ($pwd) {
+        Mail::queue('emails.password_reset', compact('pwd'), function($m) use ($pwd) {
             $m->from('noreply@app.com', 'Password Reset');
 
             $m->to($pwd->email, $pwd->name)->subject('Confirm Password Reset');

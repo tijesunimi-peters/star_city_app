@@ -36,10 +36,14 @@ Route::group(['middleware'=>'web'], function() {
   Route::controller('api','ApiController');
   Route::controller('login','LoginController');
   Route::controller('registration','RegistrationController');
-  Route::controller('password_reset','PasswordResetController',[
-        'getConfirmPassword'=>'confirm_password'
-    ]);
+  
 });
+
+Route::group(['middleware'=>['web','jwt.auth']], function() {
+  Route::controller('password_reset','PasswordResetController');
+});
+
+Route::get('/password_confirm', 'PwdConfirmationCtrl@confirmPassword');
 
 
 

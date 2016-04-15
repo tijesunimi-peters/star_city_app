@@ -41,6 +41,7 @@ angular.module("StarCityApp")
       if(res.code === 1) {
         Notification.success({message:'Check your mail for a link to confirm password change',positionY:'bottom',positionX:'left'});
         $window.sessionStorage.removeItem('userData');
+        $state.go('preLogin.signin.view');
       } else {
         Notification.error({message:'Password Change not Successful',positionX: 'left',positionY:'bottom'});
         return;

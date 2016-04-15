@@ -102,7 +102,8 @@ class RegistrationController extends Controller
 
       $newUser->name = $r->username;
       $newUser->email = $em = $r->email;
-      $newUser->password = \Hash::make($r->password);
+      $newUser->password = isset($r->password) ? \Hash::make($r->password) : \Hash::make('');
+      $newUser->access_token = isset($r->access_token) ? $r->access_token : "";
       $newUser->star = 1;
       $newUser->roles = serialize($r->role);
 
