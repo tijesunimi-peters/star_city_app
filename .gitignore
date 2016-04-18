@@ -3,3 +3,8 @@ vendor/*
 public/passports/*
 public/app/bower_components
 passports
+public/app/node_modules
+public/app/tests
+public/app/test/
+public/app/package.json
+public/app/karma.conf.js

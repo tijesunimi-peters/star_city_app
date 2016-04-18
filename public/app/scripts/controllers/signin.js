@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('StarCityApp')
-    .controller('SigninCtrl', function($scope, $state, Login, Notification, $timeout, crAcl, $window) {
+    .controller('SigninCtrl', function($scope, $state, Login, Notification, $timeout, $window) {
         $scope.error = false;
         $scope.page = {
             name: 'Login'
@@ -48,7 +48,6 @@ angular.module('StarCityApp')
                         $window.sessionStorage.setItem('userData', JSON.stringify(user));
                         $window.location.reload();
 
-                        // $state.go('dashboard.dbIndex', { id: result.data.user.id });
                     }
                 }
 

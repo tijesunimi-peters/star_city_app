@@ -4,6 +4,7 @@
 angular.module('StarCityApp', [
         'ngCookies',
         'ngResource',
+        // 'ngMock',
         'ngSanitize',
         'ui.router',
         'ui-notification',
@@ -269,16 +270,13 @@ angular.module('StarCityApp', [
                 templateUrl: 'app/views/contact.html',
                 controller: 'ContactCtrl'
             })
-
-        $urlRouterProvider.otherwise('/');
-        $stateProvider
             .state('index', {
-                url: '/',
+                url: '/index',
                 templateUrl: 'app/views/main.html',
                 controller: 'MainCtrl'
             });
 
-        // $locationProvider.html5Mode(true);            
+        $urlRouterProvider.otherwise('/index');
 
     })
 

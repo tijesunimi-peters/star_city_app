@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('publicApp')
+angular.module('StarCityApp')
   .directive('ngThumb.js', function () {
     return {
       template: '<div></div>',

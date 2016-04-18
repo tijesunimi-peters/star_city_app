@@ -75,6 +75,17 @@ angular.module('StarCityApp')
             return q.promise;
         }
 
+        _.starMakerReg = function(data) {
+            var q = $q.defer();
+            $http.post('index.php/registration/register-star-maker',data).then(function(res) {
+                q.resolve(res);
+            }).catch(function(e) {
+                q.reject();
+            });
+
+            return q.promise;
+        }
+
 
         return _;
 

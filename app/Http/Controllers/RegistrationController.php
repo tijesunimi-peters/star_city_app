@@ -7,11 +7,14 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Requests\ProfilePicRequest;
 use App\Http\Requests\StarRegistrationRequest as SRR;
+use App\Http\Requests\StarMakerRegRequest;
 
 use App\Http\Requests\CheckEmailRequest;
 use App\User;
 use App\Star;
+use App\StarMaker;
 use App\Http\Controllers\Controller;
+use App\Events\StarMakerEmailChecked;
 
 class RegistrationController extends Controller
 {
@@ -87,7 +90,6 @@ class RegistrationController extends Controller
     }
 
     Public function postRegisterStar(SRR $r) {
-      // return $r->all();
       $star = new Star;
 
       $star->first_name = $r->first_name;
@@ -98,6 +100,7 @@ class RegistrationController extends Controller
       $star->state = $r->input('state')['name'];
       $star->image = $r->profile_pic;
       $star->bio = $r->bio;
+      $star->roles = serialize($r->role);
 
       $newUser = new User;
 
@@ -106,7 +109,6 @@ class RegistrationController extends Controller
       $newUser->password = isset($r->password) ? \Hash::make($r->password) : \Hash::make('');
       $newUser->access_token = isset($r->access_token) ? $r->access_token : "";
       $newUser->star = 1;
-      $newUser->roles = serialize($r->role);
 
       if($newUser->save()) {
         $user = User::where('email','=',$em)->first();
@@ -120,7 +122,8 @@ class RegistrationController extends Controller
       }
     }
 
-    Public function postFbRegistration(Request $r) {
+    Public function postFbRegistration(Request $r) 
+    {
       $star = new Star;
 
 
@@ -133,6 +136,52 @@ class RegistrationController extends Controller
       $star->image = $r->profile_pic;
       $star->bio = $r->bio;
 
-      // return response()->json($r->all());
+    }
+
+    Public function postRegisterStarMaker(StarMakerRegRequest $r) {
+      $user = new User;
+      $user->name = $r->username;
+      $user->star_maker = 1;
+      $user->email = $r->email;
+      $user->password = \Hash::make($r->password);
+      
+      $profileData = new StarMaker;
+      $profileData->address = $r->address;
+      $profileData->city = $r->city;
+      $profileData->state = $r->state;
+      $profileData->image = $r->logo_image;
+      $profileData->company_name = $r->company_name;
+
+      $checkEmail = User::where('email','=',$r->email)->first();
+
+      if(!empty($checkEmail) && $checkEmail->star == 1) 
+      {
+        if($checkEmail->star_maker()->save($profileData)) {
+          $user = User::find($checkEmail->id);
+          $user->star_maker = 1;
+          if($user->save()) {
+            return response()->json(['code'=>'success','response'=>'Email is registered as a Star and Star Maker']);
+          } else {
+            return response()->json(['code'=>'error','response'=>'User not Updated, but Star Maker Created']);
+          };
+        } else {
+          return response()->json(['code'=>'error','response'=>'Star Maker Not Created']);
+        }
+        
+      } elseif(!empty($checkEmail) && $checkEmail->star_maker == 1) 
+      {
+        return response()->json(['code'=>'error','response'=>'Account Already Exists']);
+      }
+
+      if($user->save()) {
+        $profileData->user_id = $user->id;
+        if($profileData->save()) {
+          return response()->json(['code'=>'success','response'=>'Star Maker Registration Successful']);
+        } else {
+          return response()->json(['code'=>'error','response'=>'Star Maker Registration Failed']);
+        }
+      } else {
+        return response()->json(['code'=>'error','response'=>'Star Maker Registration Failed']);
+      }
     }
 }

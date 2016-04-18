@@ -268,19 +268,19 @@ angular.module('StarCityApp')
 
         }
 
-        $scope.check_password = function() {
-            if ((typeof $scope.registration_data.password != 'undefined') && (typeof $scope.registration_data.confirm_password != 'undefined')) {
-                if ($scope.registration_data.password.length < 8) {
+        $scope.check_password = function(password,confirm_password) {
+            if ((typeof password != 'undefined') && (typeof confirm_password != 'undefined')) {
+                if (password.length < 8) {
                     Notification.error({ message: "Password must be at least 8 in length", positionY: "bottom", positionX: "left" });
                     return false;
                 }
-                if ($scope.registration_data.password != $scope.registration_data.confirm_password) {
+                if (password != confirm_password) {
                     Notification.error({ message: "Password Does not Match", positionY: "bottom", positionX: "left" });
                     return false;
                 }
 
                 var regularExpression = /[!@#$%^&*]{1}/;
-                if (!regularExpression.test($scope.registration_data.password)) {
+                if (!regularExpression.test(password)) {
                     Notification.error({ message: "Password must contain at least one character", positionY: "bottom", positionX: "left" });
                     return false;
                 } else {
@@ -329,16 +329,24 @@ angular.module('StarCityApp')
                         positionY: 'bottom',
                         positionX: 'left'
                     });
-                }
-                if (res.data.code === 'success') {
+                }else if (res.data.code === 'success') {
                     $scope.canUpload = true;
-                    $scope.registration_data.profile_pic = $scope.image = res.data.file_name;
+                    $scope.registration_data.profile_pic= $scope.starmaker.logo_image = $scope.image = res.data.file_name;
                     Notification.success({
                         message: res.data.response,
                         positionY: 'bottom',
                         positionX: 'left'
                     });
+                } else {
+                    Notification.error({
+                        message: "Error Occured Pls check the file and try again",
+                        positionY: 'bottom',
+                        positionX: 'left'
+                    });
                 }
+
+                    
+                
             });
 
 
@@ -363,10 +371,20 @@ angular.module('StarCityApp')
                     $scope.registration_data.sex = $scope.sexOptions[1];
                 }
                 $scope.registration_data.city = res.location.name;
-                console.log($scope.registration_data);
                 return;
                 $scope.pushData('page2');
             });
+        }
+        $scope.starmaker = {};
+
+        $scope.starMakerData = function() {
+          Registrationservice.starMakerReg($scope.starmaker).then(function(res) {
+            if(res.data.code === 'error') {
+                Notification.error({message:res.data.response,positionY:'bottom',positionX:'left'});
+            } else if (res.data.code === 'success') {
+                Notification.success({message:res.data.response,positionX:'left',positionY:'bottom'});
+            }
+          });
         }
 
     });

@@ -90,6 +90,7 @@
     </script>
     <script src="{{asset('app/bower_components/jquery/jquery.js')}}"></script>
     <script src="{{asset('app/bower_components/angular/angular.min.js')}}"></script>
+    <script src="{{asset('app/bower_components/angular-mocks/angular-mocks.js')}}"></script>
     <!-- build:js scripts/modules.js -->
     <script src="{{asset('app/bower_components/angular-resource/angular-resource.js')}}"></script>
     <script src="{{asset('app/bower_components/angular-cookies/angular-cookies.js')}}"></script>

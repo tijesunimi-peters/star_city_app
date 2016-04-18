@@ -19,6 +19,7 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\PasswordConfirmed' => [
             'App\Listeners\PwdConfirmedListener',
         ],
+        
     ];
 
     /**
