@@ -55,7 +55,29 @@ class LoginController extends Controller
         return response()->json(['code'=>'success','response'=>'logged out']);
     }
 
-    Public function postStarMakersLogin() {
+    Public function postStarMakersLogin(ULR $request) {
+        $input = ['email'=>$request->email,'password'=>$request->password];
+        $starMaker = User::where('email','=',$input['email'])->where('star_maker','=',1)->first();
+
+        if(empty($starMaker) || $starMaker == null) {
+            return response()->json(['code'=>'error','response'=>'Account does not exist']);
+        }
+
+        try {
+
+            if(!$token = JWTAuth::attempt($input)) {
+                return response()->json(['code'=>'error','response'=>"Email and Password combination Incorrect"]);
+            } 
+        } catch(JWTException $e) {
+            return response()->json(['code'=>'error','response' => 'Could not create token'], 500);
+        }
+        
+        $code = 'success';
+        $response = 'Login Successful';
+        $profile = User::find(Auth::user()->id)->starMakerProfile;
+        $user = Auth::user();
+
+        return response()->json(compact('code','response','token','user','profile'));
     }
 
     Public function postFbSignin(Request $r) {

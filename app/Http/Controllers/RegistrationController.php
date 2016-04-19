@@ -156,7 +156,7 @@ class RegistrationController extends Controller
 
       if(!empty($checkEmail) && $checkEmail->star == 1) 
       {
-        if($checkEmail->star_maker()->save($profileData)) {
+        if($checkEmail->starMakerProfile()->save($profileData)) {
           $user = User::find($checkEmail->id);
           $user->star_maker = 1;
           if($user->save()) {

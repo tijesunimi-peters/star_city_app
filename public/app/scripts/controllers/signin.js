@@ -82,8 +82,6 @@ angular.module('StarCityApp')
                             user.roles = result.data.user.roles;
                             user.token = result.data.token;
                             $window.sessionStorage.setItem('userData', JSON.stringify(user));
-                            // console.log($state);
-                            // $state.reload('dashboard.dbIndex', { id: result.data.user.id });
                             $window.location.reload();
 
                         } else {
@@ -96,6 +94,31 @@ angular.module('StarCityApp')
                     console.log("No Authentication");
                 }
             });
+        }
+
+        $scope.starMakersLogin = function() {
+            Login.starMakersLogin($scope.starmaker).then(function(res) {
+                if(res.status === 422) {
+                    Notification.error({ "message" : res.data.email[0],positionX:'left',positionY:'bottom' });
+                    return;
+                } else if(res.data.code === "error") {
+                    Notification.error({message:res.data.response,positionX:'left',positionY:'bottom'});
+                    return;
+                } else if(res.data.code === "success") {
+                    Notification.success({message:res.data.response,positionX:'left',positionY:'bottom'});
+                    var user = {};
+                    user = res.data.profile;
+                    user.email = res.data.user.email;
+                    user.username = res.data.user.name;
+                    user.roles = res.data.user.roles;
+                    user.token = res.data.token;
+                    $window.sessionStorage.setItem('userData', JSON.stringify(user));
+                    $window.location.reload();
+                } else {
+                    Notification.error({message:"Error Occured; Pls Try Again",positionY:'bottom',positionX:'left'});
+                    return;
+                }
+            })
         }
 
 

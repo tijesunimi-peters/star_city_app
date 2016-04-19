@@ -1,20 +1,18 @@
 <div class="column">
-    <div class="row center">
+    <div class="row center-xs">
         <div class="col-xs-12">
             <div class="box">
                 <form>
-                    <h2 class="">
-                Star Makers Login
-            </h2>
+                    <h2 class="">Star Makers Login</h2>
                     <label>
-                        <input type="email" required ng-model="star_register.email" />
+                        <input type="email" required ng-model="starmaker.email" />
                         <div class="label-text">E-mail</div>
                     </label>
                     <label>
-                        <input type="password" ng-model="star_register.password" required />
+                        <input type="password" ng-model="starmaker.password" required />
                         <div class="label-text">Password</div>
                     </label>
-                    <button type="submit" ng-click="formFields(star_register)">Login</button>
+                    <button type="submit" ng-click="starMakersLogin()">Login</button>
                 </form>
             </div>
         </div>

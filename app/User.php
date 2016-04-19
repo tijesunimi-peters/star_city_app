@@ -28,7 +28,7 @@ class User extends Authenticatable
         return $this->hasOne('\App\Star','user_id','id');
     }
 
-    public function star_maker() {
+    public function starMakerProfile() {
         return $this->hasOne('\App\StarMaker');
     }
 }
