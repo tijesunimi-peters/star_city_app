@@ -125,6 +125,7 @@
     <script src="{{asset('app/scripts/services/RegistrationService.js')}}">
     </script>
     <script src="{{asset('app/scripts/services/PasswordResetService.js')}}"></script>
+    <script src="{{asset('app/scripts/services/NotificationService.js')}}"></script>
     <script src="{{asset('app/scripts/factories/jwtInterceptor.js')}}"></script>
     <!-- endbuild -->
    

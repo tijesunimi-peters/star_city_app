@@ -16,7 +16,9 @@
                 <div class="row middle-xs around-xs">
                     <div class="col-xs-6">
                         <div class="box start-xs">
-                            <h2 class="">{{user.first_name}} {{user.last_name}}</h2>
+                            <h2 ng-show="user.type === 'star'" class="">{{user.first_name}} {{user.last_name}} </h2>
+                            <h2 ng-show="user.type === 'star_maker'" class="">{{user.company_name}}</h2>
+                            <!-- {{userType}} -->
                             <span ng-repeat="role in user.roles track by $index">
                                 <a href="#">
                                     <small ng-if="role.value === 'Actor/Actress' && user.sex === 'male'">Actor</small>

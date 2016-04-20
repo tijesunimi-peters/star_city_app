@@ -39,8 +39,9 @@ class LoginController extends Controller
             $code = 'success';
             $response = 'Login Successful';
             $profile = User::find(Auth::user()->id)->starProfile;
+            $profile->roles = unserialize($profile->roles);
             $user = Auth::user();
-            $user->roles = unserialize($user->roles);
+            // $user->roles = unserialize($user->roles);
 
             return response()->json(compact('code','response','token','user','profile'));
 
