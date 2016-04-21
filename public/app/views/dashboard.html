@@ -1,117 +1,118 @@
 <div class="row center-xs">
-  <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10">
-    <div class="panel">
-      <div class="row middle-xs between-xs">
-        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-          <div class="box">
-            <a ui-sref="index">
-              <h3>
-              Star City Hq
-              </h3>
-              <!-- <small>{{rootPage}}</small> -->
-            </a>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-          <div class="box">
-            <div class="dropdown">
-              <div class="btn btn-default dropdown-toggle" role="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                <i class="glyphicon glyphicon-stats"></i>
-                <span class="caret"></span>
-              </div>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li ng-class="{active: rootPage === 'dashboard.container.profile'}"><a ui-sref="dashboard.container.profile"><i class="glyphicon glyphicon-user"></i>&nbsp; Profile</a></li>
-                <li role="separator" class="divider"></li>
-                <li ng-controller="SigninCtrl" ><a role="button" ng-click="starsLogout()"><i class="glyphicon glyphicon-lock"></i>&nbsp;Logout</a></li>
-              </ul>
+    <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10">
+        <div class="panel">
+            <div class="row middle-xs between-xs">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                    <div class="box">
+                        <a ui-sref="index">
+                            <h3>Star City Hq</h3>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                    <div class="box">
+                        <div class="dropdown">
+                            <div class="btn btn-default dropdown-toggle" role="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                <i class="glyphicon glyphicon-stats"></i>
+                                <span class="caret"></span>
+                            </div>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                <li ng-class="{active: rootPage === 'dashboard.container.profile'}"><a ui-sref="dashboard.container.profile"><i class="glyphicon glyphicon-user"></i>&nbsp; Profile</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li ng-controller="SigninCtrl"><a role="button" ng-click="starsLogout()"><i class="glyphicon glyphicon-lock"></i>&nbsp;Logout</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>
 <div class="row center-xs">
-  <div class="col-xs-10">
-    <div class="row">
-      <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
-        <div class="box">
-          <div class="panel">
-            <div class="panel-body">
-              <a role="button" data-toggle="collapse" data-target="#sidebar-menu" aria-expanded="true" aria-controls="sidebar-menu">
-                <i class="glyphicon glyphicon-plus"></i>
-              </a>
-              <div class="collapse" id="sidebar-menu">
-                <ul class="nav nav-pills nav-stacked" style="text-align: left">
-                  <li ng-class="{active: rootPage === 'dashboard.dbIndex'}">
-                    <a ui-sref="dashboard.dbIndex">
-                      <i class="glyphicon glyphicon-home"></i>
-                      <span class="hidden-sm">
+    <div class="col-xs-10">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
+                <div class="box">
+                    <div class="panel">
+                        <div class="panel-body">
+                            <a role="button" data-toggle="collapse" data-target="#sidebar-menu" aria-expanded="true" aria-controls="sidebar-menu">
+                                <i class="glyphicon glyphicon-plus"></i>
+                            </a>
+                            <div class="collapse" id="sidebar-menu">
+                                <ul class="nav nav-pills nav-stacked" style="text-align: left">
+                                    <li ng-class="{active: rootPage === 'dashboard.dbIndex'}">
+                                        <a ui-sref="dashboard.dbIndex">
+                                            <i class="glyphicon glyphicon-home"></i>
+                                            <span class="hidden-sm">
                         &nbsp;Dashboard
                       </span></a>
-                    </li>
-                    <li ng-class="{active: rootPage === 'dashboard.container.profile'}">
-                    <a ui-sref="dashboard.container.profile">
-                      <i class="glyphicon glyphicon-check"></i>
-                      <span class="hidden-sm">
+                                    </li>
+                                    <li ng-class="{active: rootPage === 'dashboard.container.profile'}">
+                                        <a ui-sref="dashboard.container.profile">
+                                            <i class="glyphicon glyphicon-check"></i>
+                                            <span class="hidden-sm">
                         &nbsp;Profile
                       </span></a>
-                    </li>
-                  </ul>
-                </div>
-                
-              </div>
-            </div>
-          </div>
-          
-        </div>
-        <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12">
-          <div class="row">
-            <div class="col-xs-12">
-              <div class="box">
-                <div class="">
-                  <div class="navbar navbar-default">
-                    <div class="">
-                      <div class="navbar-header">
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        </button>
-                        <!-- <a class="navbar-brand" href="#"></a> -->
-                        <!-- app/styles/css/effect1.css -->
-                      </div>
-                      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                        <ul class="nav navbar-nav">
-                          <li ng-class="{active: rootPage === 'dashboard.container.auditions'}"><a ui-sref="dashboard.container.auditions">Audtions</a></li>
-                          <li ng-class="{active: rootPage === 'dashboard.container.studios'}"><a ui-sref="dashboard.container.studios">Studio/Set</a></li>
-                          <li ng-class="{active: rootPage === 'dashboard.container.blog'}"><a ui-sref="dashboard.container.blog">Blog</a></li>
-                          <li ng-class="{active: rootPage === 'dashboard.container.talent'}"><a ui-sref="dashboard.container.talent">Talent</a></li>
-                          <li ng-class="{active: rootPage === 'dashboard.container.jobs'}"><a ui-sref="dashboard.container.jobs">Jobs</a></li>
-                          <li ng-class="{active: rootPage === 'dashboard.container.equipments'}"><a ui-sref="dashboard.container.equipments">Equipments</a></li>
-                        </ul>
-                      </div>
-                      <!-- /.navbar-collapse -->
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
-                    <!-- /.container-fluid -->
-                  </div>
                 </div>
-              </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-xs-12">
-              <div class="box">
-                <div class="panel col-xs-12">
-                  <div class="panel-body">
-                    <div ui-view="DashboardView"></div>
-                  </div>
+            <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="box">
+                            <div class="">
+                                <div class="navbar navbar-default">
+                                    <div class="">
+                                        <div class="navbar-header">
+                                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                                                <span class="sr-only">Toggle navigation</span>
+                                                <span class="icon-bar"></span>
+                                                <span class="icon-bar"></span>
+                                                <span class="icon-bar"></span>
+                                            </button>
+                                        </div>
+                                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                                            <ul class="nav navbar-nav">
+                                                <li ng-class="{active: rootPage === 'dashboard.container.auditions'}" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Audtions <span class="caret"></span></a>
+                                                    <ul class="dropdown-menu">
+                                                        <li>
+                                                            <a ui-sref="dashboard.container.auditions.index">All</a>
+                                                        </li>
+                                                        <li><a ng-show="user.type === 'star_maker'" ui-sref="dashboard.container.auditions.new">Add</a></li>
+                                                        <li><a ng-show="user.type === 'star_maker'">My Auditions</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li ng-class="{active: rootPage === 'dashboard.container.studios'}"><a ui-sref="dashboard.container.studios">Studio/Set</a></li>
+                                                <li ng-class="{active: rootPage === 'dashboard.container.blog'}"><a ui-sref="dashboard.container.blog">Blog</a></li>
+                                                <li ng-class="{active: rootPage === 'dashboard.container.talent'}"><a ui-sref="dashboard.container.talent">Talent</a></li>
+                                                <li ng-class="{active: rootPage === 'dashboard.container.jobs'}"><a ui-sref="dashboard.container.jobs">Jobs</a></li>
+                                                <li ng-class="{active: rootPage === 'dashboard.container.equipments'}"><a ui-sref="dashboard.container.equipments">Equipments</a></li>
+                                            </ul>
+                                        </div>
+                                        <!-- /.navbar-collapse -->
+                                    </div>
+                                    <!-- /.container-fluid -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="box">
+                            <div class="panel col-xs-12">
+                                <div class="panel-body">
+                                    <div ui-view="DashboardView"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
+</div>

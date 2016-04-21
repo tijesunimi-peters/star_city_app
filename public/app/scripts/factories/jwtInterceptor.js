@@ -12,7 +12,7 @@ angular.module('StarCityApp')
   var _ = {};
 
   _.request = function(config) {
-    if(token && !/(angular-ui-notification.html)/.test(config.url)) {
+    if(token && !/(angular-ui-notification.html)/.test(config.url) && !/(ui-grid)/.test(config.url)) {
       config.url = config.url+'?token='+token;
     }
     return config;

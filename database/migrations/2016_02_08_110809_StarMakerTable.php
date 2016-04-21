@@ -15,8 +15,7 @@ class StarMakerTable extends Migration
         Schema::create('star_makers', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');
-            $table->string('first_name');
-            $table->string('last_name');
+            $table->string('company_name');
             $table->string('address');
             $table->string('city');
             $table->string('state')->index();

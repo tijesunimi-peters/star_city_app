@@ -4,7 +4,7 @@
 angular.module('StarCityApp', [
         'ngCookies',
         'ngResource',
-        // 'ngMock',
+        'ui.grid',
         'ngSanitize',
         'ui.router',
         'ui-notification',
@@ -47,13 +47,33 @@ angular.module('StarCityApp', [
             })
             .state('dashboard.container.auditions', {
                 authenticated: true,
+                abstract: true,
                 url: '/auditions',
                 views: {
                     'DB-container': {
-                        templateUrl: "app/views/dashboard_pages/auditions.html"
+                        template: "<div ui-view='auditions-container'></div>",
+                        controller: 'AuditionsController'
                     }
                 }
 
+            })
+            .state('dashboard.container.auditions.index',{
+                url:'/index',
+                authenticated: true,
+                views: {
+                    'auditions-container': {
+                        templateUrl:'app/views/auditions/index.html'
+                    }
+                }
+            })
+            .state('dashboard.container.auditions.new',{
+                url:'/add',
+                authenticated: true,
+                views: {
+                    'auditions-container': {
+                        templateUrl:'app/views/auditions/new.html'
+                    }
+                }
             })
             .state('dashboard.container.studios', {
                 authenticated: true,

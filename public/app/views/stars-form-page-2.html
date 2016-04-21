@@ -45,7 +45,6 @@
                             </div>
                         </div>
                     </div>
-                    
                     <div class="row center-xs">
                         <div class="box">
                             <label>
@@ -91,12 +90,12 @@
                         </div>
                         <div class="col-xs-12">
                             <div class="box">
-                                <label>
-                                    <input type="text" ng-model="registration_data.DOB" />
-                                    <div class="label-text">D.O.B</div>
-                                     <span>yyyy-mm-dd</span>
-                                </label>
-
+                                <div class="form-group">
+                                    <label class="form-label">Date of Birth</label>
+                                    <div class="col-xs-4 col-xs-offset-4">
+                                        <input type="date" class="form-control" ng-model="registration_data.DOB" />
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

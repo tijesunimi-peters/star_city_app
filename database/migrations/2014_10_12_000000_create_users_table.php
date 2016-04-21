@@ -19,6 +19,7 @@ class CreateUsersTable extends Migration
             $table->boolean('star_maker');
             $table->string('email')->unique()->index();
             $table->string('password', 60);
+            $table->string('access_token');
             $table->rememberToken();
             $table->timestamps();
         });
@@ -31,6 +32,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::drop('users');
+        Schema::dropIfExists('users');
     }
 }

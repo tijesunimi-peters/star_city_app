@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('StarCityApp')
-    .controller('PreloginCtrl', function($scope, $state, Registrationservice, Notification, $cacheFactory, FileUploader) {
+    .controller('PreloginCtrl', function($scope, $state, Registrationservice, NotificationService, StatesFactory, FileUploader, FormatDateService) {
         $scope.emailExists = false;
         $scope.addVideo = true;
         $scope.addAudio = true;
@@ -48,121 +48,8 @@ angular.module('StarCityApp')
         }];
 
 
-        $scope.states = [{
-            id: 1,
-            name: 'Abia'
-        }, {
-            id: 2,
-            name: 'Adamawa'
-        }, {
-            id: 3,
-            name: 'Akwa Ibom'
-        }, {
-            id: 4,
-            name: 'Anambra'
-        }, {
-            id: 5,
-            name: 'Bauchi'
-        }, {
-            id: 6,
-            name: 'Bayelsa'
-        }, {
-            id: 7,
-            name: 'Benue'
-        }, {
-            id: 8,
-            name: 'Borno'
-        }, {
-            id: 9,
-            name: 'Cross River'
-        }, {
-            id: 10,
-            name: 'Delta'
-        }, {
-            id: 11,
-            name: 'Ebonyi'
-        }, {
-            id: 12,
-            name: 'Edo'
-        }, {
-            id: 13,
-            name: 'Ekiti'
-        }, {
-            id: 14,
-            name: 'Enugu'
-        }, {
-            id: 15,
-            name: 'FCT Abuja'
-        }, {
-            id: 16,
-            name: 'Gombe'
-        }, {
-            id: 17,
-            name: 'Imo'
-        }, {
-            id: 18,
-            name: 'Jigawa'
-        }, {
-            id: 19,
-            name: 'Kaduna'
-        }, {
-            id: 20,
-            name: 'Kano'
-        }, {
-            id: 21,
-            name: 'Katsina'
-        }, {
-            id: 22,
-            name: 'Kebbi'
-        }, {
-            id: 23,
-            name: 'Kogi'
-        }, {
-            id: 24,
-            name: 'Kwara'
-        }, {
-            id: 25,
-            name: 'Lagos'
-        }, {
-            id: 26,
-            name: 'Nasarawa'
-        }, {
-            id: 27,
-            name: 'Niger'
-        }, {
-            id: 28,
-            name: 'Ogun'
-        }, {
-            id: 29,
-            name: 'Ondo'
-        }, {
-            id: 30,
-            name: 'Osun'
-        }, {
-            id: 31,
-            name: 'Oyo'
-        }, {
-            id: 32,
-            name: 'Plateau'
-        }, {
-            id: 33,
-            name: 'Rivers'
-        }, {
-            id: 34,
-            name: 'Sokoto'
-        }, {
-            id: 35,
-            name: 'Taraba'
-        }, {
-            id: 36,
-            name: 'Yobe'
-        }, {
-            id: 37,
-            name: 'Zamfara'
-        }, {
-            id: 38,
-            name: 'state'
-        }];
+        $scope.states = StatesFactory.getStates();
+
 
         $scope.backToSignUp = function() {
             $state.go('preLogin.signup.view');
@@ -201,17 +88,12 @@ angular.module('StarCityApp')
         $scope.pushData = function(next) {
 
             if (!$scope.registration_data.email) {
-                Notification.error({
-                    message: 'Please fill in your Email',
-                    positionX: 'left',
-                    positionY: 'bottom'
-                });
+                NotificationService.error('Please fill in your Email');
                 $state.go('preLogin.stars-form-1');
                 return;
             }
             switch (next) {
                 case 'page2':
-                    // $scope.submit();
                     $scope.page2();
                     break;
                 case 'page3':
@@ -230,30 +112,16 @@ angular.module('StarCityApp')
         }
 
         $scope.page2 = function() {
-            // $scope.submit();
             Registrationservice.checkEmail($scope.registration_data).then(function(res) {
                 if (res.data.code == 'error') {
                     $scope.emailExists = true;
-                    Notification.error({
-                        message: res.data.response,
-                        positionX: 'left',
-                        positionY: 'bottom'
-                    })
+                    NotificationService.error(res.data.response);
                 }
 
                 if (res.data.code == 'success') {
-                    Notification.success({
-                        message: 'Proceeding',
-
-                        positionX: 'left',
-                        positionY: 'bottom'
-                    });
-
+                    NotificationService.success('Proceeding');
                     $state.go('preLogin.stars-form-2');
                 }
-
-
-
             });
 
 
@@ -261,27 +129,28 @@ angular.module('StarCityApp')
 
         $scope.page3 = function() {
             if ($scope.registration_data.password !== $scope.registration_data.confirm_password) {
-                Notification.error({ message: "Password Does not Match", positionY: "bottom", positionX: "left" });
+                NotificationService.error("Password Does not Match");
+                return;
             } else {
                 $state.go('preLogin.stars-form-3');
             }
 
         }
 
-        $scope.check_password = function(password,confirm_password) {
+        $scope.check_password = function(password, confirm_password) {
             if ((typeof password != 'undefined') && (typeof confirm_password != 'undefined')) {
                 if (password.length < 8) {
-                    Notification.error({ message: "Password must be at least 8 in length", positionY: "bottom", positionX: "left" });
+                    NotificationService.error("Password must be at least 8 in length");
                     return false;
                 }
                 if (password != confirm_password) {
-                    Notification.error({ message: "Password Does not Match", positionY: "bottom", positionX: "left" });
+                    NotificationService.error("Password Does not Match");
                     return false;
                 }
 
                 var regularExpression = /[!@#$%^&*]{1}/;
                 if (!regularExpression.test(password)) {
-                    Notification.error({ message: "Password must contain at least one character", positionY: "bottom", positionX: "left" });
+                    Notification.error("Password must contain at least one character");
                     return false;
                 } else {
                     return true;
@@ -301,21 +170,15 @@ angular.module('StarCityApp')
                 };
             }
 
+            $scope.registration_data.DOB = FormatDateService.format($scope.registration_data.DOB.toLocaleDateString());
 
             Registrationservice.submit($scope.registration_data).then(function(res) {
                 if (res.code === 'success') {
-                    Notification.success({
-                        'message': 'Pls Sign in with your email and password',
-                        'positionY': 'bottom',
-                        'positionX': 'left'
-                    });
+                    NotificationService.success('Pls Sign in with your email and password');
                     $state.go('preLogin.stars-signin');
                 } else {
-                    Notification.error({
-                        'message': res.response,
-                        'positionY': 'bottom',
-                        'positionX': 'left'
-                    });
+                    NotificationService.error(res.response);
+                    return;
                 }
             })
 
@@ -324,29 +187,19 @@ angular.module('StarCityApp')
         $scope.checkFile = function(photo) {
             Registrationservice.checkPhoto(photo).then(function(res) {
                 if (res.data.code === 'error') {
-                    Notification.error({
-                        message: res.data.response,
-                        positionY: 'bottom',
-                        positionX: 'left'
-                    });
-                }else if (res.data.code === 'success') {
+                    NotificationService.error(res.data.response);
+                    return;
+                } else if (res.data.code === 'success') {
                     $scope.canUpload = true;
-                    $scope.registration_data.profile_pic= $scope.starmaker.logo_image = $scope.image = res.data.file_name;
-                    Notification.success({
-                        message: res.data.response,
-                        positionY: 'bottom',
-                        positionX: 'left'
-                    });
+                    $scope.registration_data.profile_pic = $scope.starmaker.logo_image = $scope.image = res.data.file_name;
+                    NotificationService.success(res.data.response);
                 } else {
-                    Notification.error({
-                        message: "Error Occured Pls check the file and try again",
-                        positionY: 'bottom',
-                        positionX: 'left'
-                    });
+                    NotificationService.error("Error Occured Pls check the file and try again");
+                    return;
                 }
 
-                    
-                
+
+
             });
 
 
@@ -354,18 +207,14 @@ angular.module('StarCityApp')
 
 
         $scope.fbReg = function() {
-            var data;
             Registrationservice.fbReg().then(function(res) {
-                console.log(res);
                 $scope.registration_data.email = res.email;
-                var a = res.birthday.split('/').reverse();
-                var format = [a[0],a[2],a[1]];
-                $scope.registration_data.DOB = format.join("-");
+                $scope.registration_data.DOB = new Date(res.birthday);
                 $scope.registration_data.first_name = res.first_name;
                 $scope.registration_data.last_name = res.last_name;
                 $scope.registration_data.access_token = res.id;
 
-                if(res.gender === 'male') {
+                if (res.gender === 'male') {
                     $scope.registration_data.sex = $scope.sexOptions[0];
                 } else {
                     $scope.registration_data.sex = $scope.sexOptions[1];
@@ -378,13 +227,15 @@ angular.module('StarCityApp')
         $scope.starmaker = {};
 
         $scope.starMakerData = function() {
-          Registrationservice.starMakerReg($scope.starmaker).then(function(res) {
-            if(res.data.code === 'error') {
-                Notification.error({message:res.data.response,positionY:'bottom',positionX:'left'});
-            } else if (res.data.code === 'success') {
-                Notification.success({message:res.data.response,positionX:'left',positionY:'bottom'});
-            }
-          });
+            Registrationservice.starMakerReg($scope.starmaker).then(function(res) {
+                if (res.data.code === 'error') {
+                    NotificationService.error(res.data.response);
+                    return;
+                } else if (res.data.code === 'success') {
+                    NotificationService.success(res.data.response);
+
+                }
+            });
         }
 
     });
