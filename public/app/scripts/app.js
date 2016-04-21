@@ -271,11 +271,30 @@ angular.module('StarCityApp', [
 
             })
             .state('preLogin.starMakers-form', {
+                abstract: true,
                 url: '/star-makers/registration-form',
                 views: {
                     'PreLogin': {
-                        templateUrl: 'app/views/starMakers-form.html',
+                        templateUrl: 'app/views/starMakers-form-cont.html',
                         controller: 'SignupFormCtrl'
+                    }
+                }
+
+            })
+            .state('preLogin.starMakers-form.checkEmail', {
+                url: '/checkEmail',
+                views: {
+                    'starMakersFormView': {
+                        templateUrl: 'app/views/starMakers-checkEmail.html'
+                    }
+                }
+
+            })
+            .state('preLogin.starMakers-form.details', {
+                url: '/details',
+                views: {
+                    'starMakersFormView': {
+                        templateUrl: 'app/views/starMakers-details.html'
                     }
                 }
 

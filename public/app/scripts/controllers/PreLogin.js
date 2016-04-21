@@ -23,31 +23,10 @@ angular.module('StarCityApp')
 
 
 
-        var reg_data = $scope.registration_data = {
-            videoLink3: [],
-            audioLink3: []
-        };
+        var reg_data = $scope.registration_data = { videoLink3: [], audioLink3: [] };
 
-        $scope.sexOptions = [{
-            id: 1,
-            value: 'male'
-        }, {
-            id: 2,
-            value: 'female'
-        }];
-
-        $scope.roles = [{
-            id: 1,
-            value: 'Singer'
-        }, {
-            id: 2,
-            value: 'Actor/Actress'
-        }, {
-            id: 3,
-            value: "Dancer"
-        }];
-
-
+        $scope.sexOptions = [{ id: 1, value: 'male' }, { id: 2, value: 'female' }];
+        $scope.roles = [{ id: 1, value: 'Singer' }, { id: 2, value: 'Actor/Actress' }, { id: 3, value: "Dancer" }];
         $scope.states = StatesFactory.getStates();
 
 
@@ -224,18 +203,7 @@ angular.module('StarCityApp')
                 $scope.pushData('page2');
             });
         }
+
         $scope.starmaker = {};
-
-        $scope.starMakerData = function() {
-            Registrationservice.starMakerReg($scope.starmaker).then(function(res) {
-                if (res.data.code === 'error') {
-                    NotificationService.error(res.data.response);
-                    return;
-                } else if (res.data.code === 'success') {
-                    NotificationService.success(res.data.response);
-
-                }
-            });
-        }
 
     });

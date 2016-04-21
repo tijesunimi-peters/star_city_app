@@ -17,6 +17,17 @@ angular.module('StarCityApp')
             return d.promise;
         }
 
+        _.checkEmailSM = function(data) {
+            var d = $q.defer();
+            $http.post('index.php/registration/star-maker-check-email',data).then(function(res) {
+                d.resolve(res);
+            }).catch(function(e) {
+                d.resolve(e);
+            });
+
+            return d.promise;
+        }
+
         _.uploadPhoto = function(photoData) {
             var d = $q.defer();
             $http.post('index.php/registration/photo-upload', photoData).then(function(res) {

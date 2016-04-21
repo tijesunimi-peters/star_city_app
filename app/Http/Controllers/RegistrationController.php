@@ -36,6 +36,19 @@ class RegistrationController extends Controller
 
     }
 
+    Public function postStarMakerCheckEmail(CheckEmailRequest $r) {
+      if(!$r->input('email')) {
+        return response()->json(['code'=>'error','response'=>'Email Index not set']);
+      }
+      $user = User::where('email','=',$r->input('email'))->first();
+
+      if(!empty($user) && $user->star_maker == 1) {
+        return response()->json(['code'=>'error','response'=>'Account is registered']);
+      } else {
+        return response()->json(['code'=>'success','response'=>true]);
+      }
+
+    }
 
     public function postValidatePhoto(ProfilePicRequest $r) {
 
