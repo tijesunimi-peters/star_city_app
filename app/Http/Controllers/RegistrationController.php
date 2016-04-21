@@ -160,7 +160,7 @@ class RegistrationController extends Controller
           $user = User::find($checkEmail->id);
           $user->star_maker = 1;
           if($user->save()) {
-            return response()->json(['code'=>'success','response'=>'Email is registered as a Star and Star Maker']);
+            return response()->json(['code'=>'success','response'=>'Email is registered as a Star and Star Maker;<br />Login with your initial username and password']);
           } else {
             return response()->json(['code'=>'error','response'=>'User not Updated, but Star Maker Created']);
           };

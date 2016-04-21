@@ -20,6 +20,8 @@ class StarMakerTable extends Migration
             $table->string('city');
             $table->string('state')->index();
             $table->string('image');
+            $table->string('roles');
+            $table->string('bio');
             $table->timestamps();
         });
     }
