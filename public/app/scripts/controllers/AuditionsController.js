@@ -12,6 +12,10 @@ angular.module('StarCityApp')
   $scope.auditionView = {};
   $scope.view = false;
   $scope.userType = UserService.getUserType();
+  $scope.genders = ArrayFactory.auditionsGenders();
+  $scope.categories = ArrayFactory.auditionsCategories();
+  $scope.types = ArrayFactory.auditionsTypes();
+
 
 
   $scope.getAuditions = function() {
@@ -28,10 +32,6 @@ angular.module('StarCityApp')
     });
   }
 
-  $scope.genders = ArrayFactory.auditionsGenders();
-  $scope.categories = ArrayFactory.auditionsCategories();
-  $scope.types = ArrayFactory.auditionsTypes();
-
   $scope.submitAudition = function() {
     $scope.audition.date = FormatDateService.format($scope.audition.dateObj.toLocaleDateString());
     $scope.audition.category = ArrayFactory.objToArray($scope.audition.category);
@@ -39,6 +39,7 @@ angular.module('StarCityApp')
     AuditionService.submitAudition($scope.audition).then(function(res) {
       if(res.data.code === 'success') {
         NotificationService.success(res.data.response);
+        $state.got('dashboard.container.auditions.index');
       } else if(res.data.code === 'error') {
         NotificationService.error(res.data.response);
       }
@@ -52,14 +53,24 @@ angular.module('StarCityApp')
   }
 
   $scope.apply = function(audition_id) {
-    console.log(audition_id);
+    if(UserService.getUserType() !== 'star') {
+      NotificationService.error('Action not Allowed');
+      return;
+    }
+
+    AuditionService.applyToAudition(audition_id).then(function(res) {
+      if(res.data.code === 'success') {
+        NotificationService.success(res.data.response);
+      } else if(res.data.code === 'error') {
+        NotificationService.error(res.data.response);
+        return;
+      } else if(res.status !== 200) {
+        NotificationService.error(res.statusText);
+      }
+    });
   }
 
   $scope.viewAudition = function() {
-    // console.log($state.params.)
-    if($state.params.audition_id === null) {
-      return;
-    }
     AuditionService.getAudition($state.params.audition_id).then(function(res) {
       if(res.data.code === 'success') {
         $scope.auditionView = res.data.response;
@@ -76,15 +87,39 @@ angular.module('StarCityApp')
     })
   }
 
-  $scope.deleteAudition = function(audition_id) {
-    //
+  $scope.delete = function(audition_id) {
+    if(UserService.getUserType() !== 'star_maker') {
+      NotificationService.error('Action not Allowed');
+      return;
+    }
+
+    AuditionService.getDeleteAudition(audition_id).then(function(res) {
+      if(res.data.code === 'success') {
+        NotificationService.success(res.data.response);
+        $scope.view = false;
+        $scope.auditions = {};
+        $scope.myAuditions();
+      } else if(res.data.code === 'error') {
+        NotificationService.error(res.data.response);
+        return;
+      } else if(res.status !== 200) {
+        NotificationService.error(res.statusText);
+      }
+    });
   }
 
   $scope.myAuditions = function() {
-    var me = $state.params.id;
-    console.log(me);
-    // AuditionService.getMyAuditions(me).then(function(res) {
+    AuditionService.getMyAuditions().then(function(res) {
+      if(res.status !== 200) {
+        NotificationService.error(res.statusText);
+        return;
+      } else if(res.data.code === 'error') {
+        NotificationService.error(res.data.response);
+        return;
+      }
 
-    // })
+      $scope.view = false;
+      $scope.auditions = ArrayFactory.formatAuditions(res.data.response,true);
+    });
   }
 })

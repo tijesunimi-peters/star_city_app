@@ -35,4 +35,8 @@ class User extends Authenticatable
     Public function auditions() {
         return $this->hasMany('\App\Audition');
     }
+
+    Public function auditionApplications() {
+        return $this->hasMany('\App\AuditionApplication');
+    }
 }

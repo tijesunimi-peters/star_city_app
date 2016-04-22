@@ -65,5 +65,29 @@ class AuditionLogics
     };
   }
 
+  Public function myAuditions() {
+    $result = [];
+    $auditions = $this->user->auditions()->orderBy('created_at','desc')->get();
+    foreach ($auditions as $audition) {
+      $result[] = $this->processData($audition,false);
+    }
+
+    return $result;
+
+  }
+
+  Public function delete($id) {
+    if($this->user->auditions()->find($id)->delete())
+    {
+      return ['success','Delete Successfull'];
+    } else {
+      return ['error','Audition not Deleted'];
+    }
+  }
+
+  Public function saveApplication($id) {
+    
+  }
+
 
 }

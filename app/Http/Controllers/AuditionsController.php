@@ -40,5 +40,19 @@ class AuditionsController extends Controller
       return response()->json(['code'=>'success','response'=>$audition->getAudition($id)]);
     }
 
+    Public function getMyAuditions(AuditionLogics $audition) {
+      return response()->json(['code'=>'success','response'=>$audition->myAuditions()]);
+    }
+
+    Public function getDeleteAudition(AuditionLogics $audition,$id) {
+      $result = $audition->delete($id);
+      return response()->json(['code'=>$result[0],'response'=>$result[1]]);
+    }
+
+    Public function getApplyToAudition(AuditionLogics $audition,$id) {
+      $result = $audition->saveApplication($id);
+      return response()->json(['code'=>$result[0],'response'=>$result[1]]);
+    }
+
     
 }
