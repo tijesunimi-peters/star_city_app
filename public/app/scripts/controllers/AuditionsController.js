@@ -122,4 +122,17 @@ angular.module('StarCityApp')
       $scope.auditions = ArrayFactory.formatAuditions(res.data.response,true);
     });
   }
+
+  $scope.mySavedAuditions = function() {
+    AuditionService.getMySavedAuditions($state.params.id).then(function(res) {
+      if(res.status !== 200) {
+        NotificationService.error(res.statusText);
+      } else if(res.data.code === "error") {
+        NotificationService.error(res.data.response);
+      } 
+
+      $scope.view = false;
+      $scope.auditions = ArrayFactory.formatAuditions(res.data.response,true);
+    });
+  }
 })

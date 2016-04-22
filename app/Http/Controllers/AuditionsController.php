@@ -12,6 +12,8 @@ use App\Classes\AuditionLogics;
 
 class AuditionsController extends Controller
 {
+
+    
     Public function postSave(NewAuditionRequest $r, AuditionLogics $audition) {
 
       $user = $audition->getUser();
@@ -52,6 +54,10 @@ class AuditionsController extends Controller
     Public function getApplyToAudition(AuditionLogics $audition,$id) {
       $result = $audition->saveApplication($id);
       return response()->json(['code'=>$result[0],'response'=>$result[1]]);
+    }
+
+    Public function getMySavedAuditions(AuditionLogics $audition) {
+      return response()->json(['code'=>'success','response'=>$audition->savedAuditions()]);
     }
 
     

@@ -94,6 +94,15 @@ angular.module('StarCityApp', [
                     }
                 }
             })
+            .state('dashboard.container.auditions.star-auditions',{
+                url:'/star-auditions',
+                authenticated: true,
+                views: {
+                    'auditions-container': {
+                        templateUrl:'app/views/auditions/star-auditions.html'
+                    }
+                }
+            })
             .state('dashboard.container.studios', {
                 authenticated: true,
                 url: '/studios',

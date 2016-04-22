@@ -76,5 +76,16 @@ angular.module('StarCityApp')
     return q.promise;
   }
 
+  _.getMySavedAuditions = function(id) {
+    var q = $q.defer();
+    $http.get('index.php/auditions/my-saved-auditions/'+id).then(function(res) {
+      q.resolve(res);
+    }).catch(function(e) {
+      q.resolve(e);
+    });
+
+    return q.promise;
+  }
+
   return _;
 })

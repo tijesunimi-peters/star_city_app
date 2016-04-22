@@ -86,15 +86,38 @@ class AuditionLogics
   }
 
   Public function saveApplication($id) {
-    // $audition = $this->user->auditions()->find($id);
-    $new_application = new \App\AuditionApplication;
-    $new_application->auditions_id = $id;
-    if($this->user->auditionApplications()->save($new_application)) {
-      return ['success',"Application Saved"];
+    if($this->checkApplication($id)) {
+        $new_application = new \App\AuditionApplication;
+        $new_application->auditions_id = $id;
+        if($this->user->auditionApplications()->save($new_application)) {
+          return ['success',"Application Saved"];
+        } else {
+          return ['error','Application not Saved'];
+        }
     } else {
-      return ['error','Application not Saved'];
+      return ['error','You already applied'];
+    }
+    
+  }
+
+  Private function checkApplication($id) {
+    $application = \App\AuditionApplication::where('auditions_id','=',$id)->where('user_id','=',$this->user->id)->first();
+
+    if(!empty($application)) {
+      return false;
+    } else {
+      return true;
     }
   }
 
+  Public function savedAuditions() {
+    $application_array = [];
+    $applications = $this->user->auditionApplications;
+    foreach ($applications as $application) {
+      $application_array[] = $this->processData($this->user->auditions()->find($application->auditions_id)->toArray(),false);
+    }
+
+    return $application_array;
+  }
 
 }
