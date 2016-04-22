@@ -29,7 +29,8 @@ class AuditionsTable extends Migration
         Schema::create('auditions_applications', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('auditions_id');
-            $table->string('applicants');
+            $table->integer('user_id');
+            $table->timestamps();
         });
     }
 

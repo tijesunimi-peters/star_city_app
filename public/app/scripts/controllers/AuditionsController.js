@@ -39,7 +39,7 @@ angular.module('StarCityApp')
     AuditionService.submitAudition($scope.audition).then(function(res) {
       if(res.data.code === 'success') {
         NotificationService.success(res.data.response);
-        $state.got('dashboard.container.auditions.index');
+        $state.go('dashboard.container.auditions.index');
       } else if(res.data.code === 'error') {
         NotificationService.error(res.data.response);
       }

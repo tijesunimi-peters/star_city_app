@@ -86,7 +86,14 @@ class AuditionLogics
   }
 
   Public function saveApplication($id) {
-    
+    // $audition = $this->user->auditions()->find($id);
+    $new_application = new \App\AuditionApplication;
+    $new_application->auditions_id = $id;
+    if($this->user->auditionApplications()->save($new_application)) {
+      return ['success',"Application Saved"];
+    } else {
+      return ['error','Application not Saved'];
+    }
   }
 
 
