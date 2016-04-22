@@ -46,7 +46,8 @@
 </div>
 <div class="form-group">
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-md-offset-3 col-lg-offset-3 ">
-        <select ng-model="starmaker.roles" multiple required>
+        <label class="form-label">Roles</label>
+        <select class="form-control" ng-model="starmaker.roles" multiple required>
             <option value="Producer">Producer</option>
             <option value="Record Label">Record Label</option>
         </select>
@@ -54,7 +55,8 @@
 </div>
 <div class="form-group">
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-md-offset-3 col-lg-offset-3 ">
-        <textarea ng-model="starmaker.bio" required></textarea>
+        <label class="form-label">About</label>
+        <textarea class="form-control" ng-model="starmaker.bio" rows="10" required></textarea>
     </div>
 </div>
 

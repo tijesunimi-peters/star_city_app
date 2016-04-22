@@ -35,13 +35,16 @@ class LoginController extends Controller
             } catch(JWTException $e) {
                 return response()->json(['code'=>'error','response' => 'could_not_create_token'], 500);
             }
+
+            if(Auth::user()->star != 1) {
+                return response()->json(['code'=>'error','response'=>"Account does not exist"]);
+            }
             
             $code = 'success';
             $response = 'Login Successful';
             $profile = User::find(Auth::user()->id)->starProfile;
             $profile->roles = unserialize($profile->roles);
             $user = Auth::user();
-            // $user->roles = unserialize($user->roles);
 
             return response()->json(compact('code','response','token','user','profile'));
 
@@ -76,6 +79,7 @@ class LoginController extends Controller
         $code = 'success';
         $response = 'Login Successful';
         $profile = User::find(Auth::user()->id)->starMakerProfile;
+        $profile->roles = unserialize($profile->roles);
         $user = Auth::user();
 
         return response()->json(compact('code','response','token','user','profile'));

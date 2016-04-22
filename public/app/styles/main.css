@@ -367,4 +367,8 @@ button[disabled], html input[disabled] {
      }
  }
 
+ .ui-grid-cell {
+    height: 100px !important;
+}
+
 

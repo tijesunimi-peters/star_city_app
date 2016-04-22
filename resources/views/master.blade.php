@@ -95,6 +95,7 @@
     <script src="{{asset('app/bower_components/angular-mocks/angular-mocks.js')}}"></script>
     <!-- build:js scripts/modules.js -->
     <script src="{{asset('app/bower_components/angular-resource/angular-resource.js')}}"></script>
+    <script src="{{asset('app/bower_components/angular-animate/angular-animate.min.js')}}"></script>
     <script src="{{asset('app/bower_components/angular-cookies/angular-cookies.js')}}"></script>
     <script src="{{asset('app/bower_components/angular-sanitize/angular-sanitize.js')}}"></script>
     <script src="{{asset('app/bower_components/angular-ui-router/release/angular-ui-router.js')}}"></script>
@@ -133,6 +134,9 @@
     <script src="{{asset('app/scripts/services/FormatDateService.js')}}"></script>
     <script src="{{asset('app/scripts/factories/jwtInterceptor.js')}}"></script>
     <script src="{{asset('app/scripts/factories/StatesFactory.js')}}"></script>
+    <script src="{{asset('app/scripts/factories/ArrayFactory.js')}}"></script>
+    <script src="{{asset('app/scripts/services/AuditionService.js')}}"></script>
+    <script src="{{asset('app/scripts/services/UserService.js')}}"></script>
     <!-- endbuild -->
    
    

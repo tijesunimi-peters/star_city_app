@@ -1,32 +1,15 @@
 'use strict';
 
 angular.module('StarCityApp')
-    .controller('SigninCtrl', function($scope, $state, Login, NotificationService, $timeout, $window) {
+    .controller('SigninCtrl', function($scope, $state, Login, NotificationService, $timeout, $window,UserService) {
         $scope.error = false;
         $scope.page = {
             name: 'Login'
         }
 
+        $scope.getStarsForm = function() { $state.go('preLogin.stars-signin');  }
 
-        var setUserData = function(data,userType) {
-            var user = {};
-            user = data.profile;
-            user.email = data.user.email;
-            user.username = data.user.name;
-            user.roles = data.profile.roles;
-            user.token = data.token;
-            user.type = userType;
-            $window.sessionStorage.setItem('userData', JSON.stringify(user));
-            $window.location.reload();
-        }
-
-        $scope.getStarsForm = function() {
-            $state.go('preLogin.stars-signin');
-        }
-
-        $scope.getStarMakersForm = function() {
-            $state.go('preLogin.starMakers-signin');
-        }
+        $scope.getStarMakersForm = function() { $state.go('preLogin.starMakers-signin'); }
 
         $scope.starsLogin = function(data) {
             Login.serverCall(data).then(function(result) {
@@ -37,7 +20,7 @@ angular.module('StarCityApp')
                         NotificationService.error(result.data.response);
                     } else if (result.data.code === 'success') {
                         NotificationService.success('Login Successful');
-                        setUserData(result.data,'star');
+                        UserService.setUserData(result.data,'star');
                     }
                 }
 
@@ -64,7 +47,7 @@ angular.module('StarCityApp')
                     Login.fbSignin(data).then(function(result) {
                         if (result.data.code === "success") {
                             NotificationService.success(result.data.response);
-                            setUserData(result.data,'star');
+                            UserService.setUserData(result.data,'star');
                         } else {
                             NotificationService.error(result.data.response);
 
@@ -87,7 +70,7 @@ angular.module('StarCityApp')
                     return;
                 } else if(res.data.code === "success") {
                     NotificationService.success(res.data.response);
-                    setUserData(res.data,'star_maker');
+                    UserService.setUserData(res.data,'star_maker');
                 } else {
                     NotificationService.error("Error Occured; Pls Try Again");
                     return;

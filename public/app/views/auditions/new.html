@@ -8,48 +8,62 @@
                     </div>
                 </div>
                 <div class="form-group">
-                  <div class="col-xs-6 col-md-offset-3 col-lg-offset-3">
+                  <label>Project Name</label>
+                  <div class="col-xs-6 col-sm-offset-3 col-xs-offset-3 col-md-offset-3 col-lg-offset-3">
                     <input type="text" class="form-control" name="project_name" ng-model="audition.name" placeholder="Project Name" required>
                   </div>
                 </div>
                 <div class="form-group">
-                  <div class="col-xs-6 col-md-offset-3 col-lg-offset-3">
+                  <div class="col-xs-6 col-sm-offset-3 col-xs-offset-3 col-md-offset-3 col-lg-offset-3">
                     <textarea class="form-control" ng-model="audition.description" placeholder="Project Description"></textarea>
                   </div>
                 </div>
                 <div class="form-group">
-                  <div class="col-xs-6 col-md-offset-3 col-lg-offset-3">
-                    <input type="date" class="form-control" ng-model="audition.date" placeholder="Project Date" required>
+                  <label>Audition Date</label>
+                  <div class="col-xs-6 col-sm-offset-3 col-xs-offset-3 col-md-offset-3 col-lg-offset-3">
+                    <input type="date" class="form-control" ng-model="audition.dateObj" placeholder="Project Date" required>
                   </div>
                 </div>
                 <div class="form-group">
-                  <div class="col-xs-6 col-md-offset-3 col-lg-offset-3">
-                    <input type="text" class="form-control" ng-model="audition.sex" placeholder="Sex" required>
+                  <label class="form-label">Gender</label>
+                  <div class="col-xs-6 col-sm-offset-3 col-xs-offset-3 col-md-offset-3 col-lg-offset-3">
+                    <select ng-model="audition.sex" required class="form-control">
+                      <option value="{{gender}}" ng-repeat="gender in genders track by $index">{{gender}}</option>}
+                    </select>
                   </div>
                 </div>
                 <div class="form-group">
-                  <div class="col-xs-6 col-md-offset-3 col-lg-offset-3">
-                    <input type="number" ng-model="audition.age" class="form-control" placeholder="Age">
+                  <label class="form-label">Age Range</label>
+                  <div class="col-xs-6 col-sm-offset-3 col-xs-offset-3 col-md-offset-3 col-lg-offset-3">
+                    <input type="number" ng-model="audition.age.from" class="form-control" placeholder="Age (from)">
+                  </div>
+                  <div class="col-xs-6 col-sm-offset-3 col-xs-offset-3 col-md-offset-3 col-lg-offset-3">
+                    <input type="number" ng-model="audition.age.to" class="form-control" placeholder="Age (to)">
                   </div>
                 </div>
                 <div class="form-group">
-                  <div class="col-xs-6 col-md-offset-3 col-lg-offset-3">
-                    <input type="text" ng-model="audition.category" class="form-control" placeholder="Category">
+                    <label class="form-label">Category</label>
+                  <div class="col-xs-6 start-xs col-sm-offset-3 col-xs-offset-3 col-md-offset-3 col-lg-offset-3" ng-repeat="category in categories">
+                    <input type="checkbox" ng-model="audition.category[category]" value="{{category}}"> {{category}}
                   </div>
                 </div>
                 <div class="form-group">
-                  <div class="col-xs-6 col-md-offset-3 col-lg-offset-3">
-                    <input type="text" ng-model="audition.type" class="form-control" placeholder="Type">
+                  <label class="form-label">Type</label>
+                  <div class="col-xs-6 col-sm-offset-3 col-xs-offset-3 col-md-offset-3 col-lg-offset-3">
+                    <select ng-model="audition.type" required class="form-control">
+                      <option value="{{type}}" ng-repeat="type in types track by $index">{{type}}</option>}
+                    </select>
                   </div>
                 </div>
                 <div class="form-group">
-                  <div class="col-xs-6 col-md-offset-3 col-lg-offset-3">
+                  <label class="form-label">Location</label>
+                  <div class="col-xs-6 col-sm-offset-3 col-xs-offset-3 col-md-offset-3 col-lg-offset-3">
                     <input type="text" ng-model="audition.location" class="form-control" placeholder="Location">
                   </div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-12">
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" ng-click="submitAudition()" class="btn btn-primary">Submit</button>
                     </div>
                 </div>
             </form>

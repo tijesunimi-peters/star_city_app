@@ -4,6 +4,7 @@
 angular.module('StarCityApp', [
         'ngCookies',
         'ngResource',
+        'ngAnimate',
         'ui.grid',
         'ngSanitize',
         'ui.router',
@@ -72,6 +73,24 @@ angular.module('StarCityApp', [
                 views: {
                     'auditions-container': {
                         templateUrl:'app/views/auditions/new.html'
+                    }
+                }
+            })
+            .state('dashboard.container.auditions.view',{
+                url:'/view/:audition_id',
+                authenticated: true,
+                views: {
+                    'auditions-container': {
+                        templateUrl:'app/views/auditions/view.html'
+                    }
+                }
+            })
+            .state('dashboard.container.auditions.mine',{
+                url:'/me',
+                authenticated: true,
+                views: {
+                    'auditions-container': {
+                        templateUrl:'app/views/auditions/mine.html'
                     }
                 }
             })
@@ -326,14 +345,14 @@ angular.module('StarCityApp', [
 
 
 
-.run(['$window', 'Login', '$state', '$rootScope', function run($window, Login, $state, $rootScope) {
+.run(function run($window, UserService, $state, $rootScope) {
 
     $rootScope.$on('$stateChangeSuccess', function(event, next) {
-        var user = JSON.parse($window.sessionStorage.getItem('userData'));
+        var user = UserService.getUser();
         $rootScope.rootPage = next.name;
 
         if (next.authenticated && /(dashboard)/.test(next.name)) {
-            if (!Login.getUser()) {
+            if (!user) {
                 $state.go('preLogin.signin.view');
             }
 
@@ -341,7 +360,7 @@ angular.module('StarCityApp', [
 
         if ((!next.authenticated || typeof next.authenticated === 'undefined') && typeof user !== 'undefined') {
 
-            if (Login.getUser() && !/(dashboard)/.test(next.name)) {
+            if (user && !/(dashboard)/.test(next.name)) {
 
                 $state.go('dashboard.dbIndex', { id: user.id });
             }
@@ -353,7 +372,7 @@ angular.module('StarCityApp', [
 
 
 
-}])
+})
 
 
 

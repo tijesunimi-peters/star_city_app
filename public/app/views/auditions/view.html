@@ -1,0 +1,48 @@
+<div class="row center-xs" ng-init="viewAudition()" ng-show="view">
+    <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
+        <div class="box">
+            <div class="panel">
+                <div class="panel-heading">
+                    <h1>{{auditionView.name}}</h1>
+                </div>
+            </div>
+            <div class="panel-body">
+                <p>{{auditionView.description}}</p>
+            </div>
+            <table class="table">
+                <caption><h3>Details</h3></caption>
+                <tbody>
+                    <tr>
+                        <td>Date</td>
+                        <td>{{auditionView.date}}</td>
+                    </tr>
+                    <tr>
+                        <td>Gender</td>
+                        <td>{{auditionView.sex}}</td>
+                    </tr>
+                    <tr>
+                        <td>Type</td>
+                        <td>{{auditionView.type}}</td>
+                    </tr>
+                    <tr>
+                        <td>Age Range</td>
+                        <td>{{auditionView.age.from}} - {{auditionView.age.to}}</td>
+                    </tr>
+                    <tr>
+                        <td>Categories</td>
+                        <td>{{auditionView.category.join(", ")}}</td>
+                    </tr>
+                    <tr>
+                        <td>Location</td>
+                        <td>{{auditionView.location}}</td>
+                    </tr>
+                    <tr>
+                            <td colspan="2">
+                              <button type="button" ng-disabled="userType === 'star_maker'" ng-click="apply(auditionView.id)">Apply</button>
+                            </td>
+                    </tr>
+                  </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -17,17 +17,6 @@ angular.module("StarCityApp")
 
         }
 
-        userModel.getUser = function() {
-            var user = $window.sessionStorage.getItem('userData');
-            if (user) {
-                return true;
-            } else {
-                return false;
-            }
-
-        }
-
-
         userModel.starFbLogin = function() {
             var q = $q.defer();
             FB.login(function(response) {

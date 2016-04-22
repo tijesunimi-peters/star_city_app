@@ -19,7 +19,7 @@ class AuditionsTable extends Migration
             $table->string('description');
             $table->date('date');
             $table->string('sex');
-            $table->integer('age');
+            $table->string('age');
             $table->string('category');
             $table->string('location');
             $table->string('type');

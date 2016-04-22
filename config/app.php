@@ -161,6 +161,7 @@ return [
         /*
          * My Providers
          */
+        App\Providers\AuditionProvider::class,
 
 
     ],

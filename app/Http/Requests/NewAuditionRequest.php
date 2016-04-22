@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
 
-class StarMakerRegRequest extends Request
+class NewAuditionRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,15 +24,14 @@ class StarMakerRegRequest extends Request
     public function rules()
     {
         return [
-            'city'=>'required',
-            'company_name'=>'required',
-            'email'=>'required|email',
-            'password'=>'required',
-            'username'=>'required',
-            'state'=>'required',
-            'logo_image'=>'required',
-            'roles'=>'required',
-            'bio'=>'required'
+            'name'=>'required',
+            'description'=>'required',
+            'date'=>'required',
+            'sex'=>'required',
+            'age'=>'required',
+            'category'=>'required',
+            'type'=>'required',
+            'location'=>'required'
         ];
     }
 }

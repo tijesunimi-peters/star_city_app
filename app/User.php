@@ -31,4 +31,8 @@ class User extends Authenticatable
     public function starMakerProfile() {
         return $this->hasOne('\App\StarMaker');
     }
+
+    Public function auditions() {
+        return $this->hasMany('\App\Audition');
+    }
 }

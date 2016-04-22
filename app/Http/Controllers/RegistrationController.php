@@ -123,6 +123,24 @@ class RegistrationController extends Controller
       $newUser->access_token = isset($r->access_token) ? $r->access_token : "";
       $newUser->star = 1;
 
+      $checkEmail = User::where('email','=',$r->email)->first();
+
+      if(!empty($checkEmail)) {
+        if($checkEmail->star == 1) {
+          return response()->json(['code'=>'error','response'=>'Account Exists']);
+        } else {
+          $checkEmail->star = 1;
+          if($checkEmail->save()) {
+
+            $checkEmail->starProfile()->save($star);
+            return response()->json(['code'=>'success','response'=>'Star Account Saved<br />Pls Login with your Star Maker Email and Password']);
+          } else {
+            return response()->json(['code'=>'error','response'=>'Star Account not Saved']);
+          }
+
+        }
+      }
+
       if($newUser->save()) {
         $user = User::where('email','=',$em)->first();
         if($user->starProfile()->save($star)) {
@@ -164,6 +182,8 @@ class RegistrationController extends Controller
       $profileData->state = $r->state;
       $profileData->image = $r->logo_image;
       $profileData->company_name = $r->company_name;
+      $profileData->roles = serialize($r->roles);
+      $profileData->bio = $r->bio;
 
       $checkEmail = User::where('email','=',$r->email)->first();
 
@@ -173,7 +193,7 @@ class RegistrationController extends Controller
           $user = User::find($checkEmail->id);
           $user->star_maker = 1;
           if($user->save()) {
-            return response()->json(['code'=>'success','response'=>'Email is registered as a Star and Star Maker;<br />Login with your initial username and password']);
+            return response()->json(['code'=>'success','response'=>'Email is registered as a Star and Star Maker;<br />Login with your Star email and password']);
           } else {
             return response()->json(['code'=>'error','response'=>'User not Updated, but Star Maker Created']);
           };
@@ -189,8 +209,9 @@ class RegistrationController extends Controller
       if($user->save()) {
         $profileData->user_id = $user->id;
         if($profileData->save()) {
-          return response()->json(['code'=>'success','response'=>'Star Maker Registration Successful']);
+          return response()->json(['code'=>'success','response'=>'Star Maker Registration Successful<br /> Login with your email and password']);
         } else {
+          $user->delete();
           return response()->json(['code'=>'error','response'=>'Star Maker Registration Failed']);
         }
       } else {

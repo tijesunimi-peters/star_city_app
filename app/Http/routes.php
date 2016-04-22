@@ -41,6 +41,7 @@ Route::group(['middleware'=>'web'], function() {
 
 Route::group(['middleware'=>['web','jwt.auth']], function() {
   Route::controller('password_reset','PasswordResetController');
+  Route::controller('auditions','AuditionsController');
 });
 
 Route::get('/password_confirm', 'PwdConfirmationCtrl@confirmPassword');
