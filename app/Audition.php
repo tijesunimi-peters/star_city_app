@@ -11,6 +11,6 @@ class Audition extends Model
     protected $fillable = ['name','description','date','sex','age','category','location','type'];
 
     public function auditionApplications() {
-      return $this->hasMany('\App\AuditionApplication');
+      return $this->hasMany('\App\AuditionApplication','auditions_id');
     }
 }

@@ -3,6 +3,7 @@ namespace App\Classes;
 
 use App\User;
 use App\Audition;
+use App\Events\AuditionDeleted;
 /**
 * 
 */
@@ -77,12 +78,10 @@ class AuditionLogics
   }
 
   Public function delete($id) {
-    if($this->user->auditions()->find($id)->delete())
-    {
-      return ['success','Delete Successfull'];
-    } else {
-      return ['error','Audition not Deleted'];
-    }
+    $audition = $this->user->auditions()->find($id);
+    event(new AuditionDeleted($audition));
+    $audition->delete();
+    return ['success','Delete Successfull'];
   }
 
   Public function saveApplication($id) {

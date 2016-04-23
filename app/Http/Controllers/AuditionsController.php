@@ -13,7 +13,7 @@ use App\Classes\AuditionLogics;
 class AuditionsController extends Controller
 {
 
-    
+
     Public function postSave(NewAuditionRequest $r, AuditionLogics $audition) {
 
       $user = $audition->getUser();

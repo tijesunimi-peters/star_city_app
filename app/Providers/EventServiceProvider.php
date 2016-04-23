@@ -19,6 +19,9 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\PasswordConfirmed' => [
             'App\Listeners\PwdConfirmedListener',
         ],
+        'App\Events\AuditionDeleted' => [
+            'App\Listeners\AuditionDeleteListener',
+        ],
         
     ];
 

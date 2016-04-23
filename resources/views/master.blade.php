@@ -67,7 +67,7 @@
         <div class="loader-section section-right"></div>
     </div> -->
 
-    <div ui-view="" class="animated fadeIn"></div>
+    <div ui-view="" class=""></div>
 
 
 

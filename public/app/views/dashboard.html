@@ -43,16 +43,12 @@
                                     <li ng-class="{active: rootPage === 'dashboard.dbIndex'}">
                                         <a ui-sref="dashboard.dbIndex">
                                             <i class="glyphicon glyphicon-home"></i>
-                                            <span class="hidden-sm">
-                        &nbsp;Dashboard
-                      </span></a>
+                                            <span class="hidden-sm">&nbsp;Dashboard</span></a>
                                     </li>
                                     <li ng-class="{active: rootPage === 'dashboard.container.profile'}">
                                         <a ui-sref="dashboard.container.profile">
                                             <i class="glyphicon glyphicon-check"></i>
-                                            <span class="hidden-sm">
-                        &nbsp;Profile
-                      </span></a>
+                                            <span class="hidden-sm">&nbsp;Profile</span></a>
                                     </li>
                                 </ul>
                             </div>
@@ -82,7 +78,7 @@
                                                         <li>
                                                             <a ui-sref="dashboard.container.auditions.index">All</a>
                                                         </li>
-                                                        <li><a ng-show="user.type === 'star_maker'" ui-sref="dashboard.container.auditions.new">Add</a></li>
+                                                        <li><a ng-show="user.type === 'star_maker'" ui-sref="dashboard.container.auditions.new">Post Auditions</a></li>
                                                         <li><a ng-show="user.type === 'star_maker'" ui-sref="dashboard.container.auditions.mine">My Auditions</a></li>
                                                         <li><a ng-show="user.type === 'star'" ui-sref="dashboard.container.auditions.star-auditions">My Auditions</a></li>
                                                     </ul>
