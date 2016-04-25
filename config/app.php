@@ -162,6 +162,7 @@ return [
          * My Providers
          */
         App\Providers\AuditionProvider::class,
+        App\Providers\RegistrationProvider::class,
 
 
     ],

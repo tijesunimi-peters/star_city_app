@@ -14,11 +14,12 @@ class StarTable extends Migration
     {
         Schema::create('stars', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id');
+            $table->integer('user_id')->unique();
             $table->string('first_name')->index();
             $table->string('last_name');
             $table->string('address');
             $table->string('sex');
+            $table->date('DOB');
             $table->string('city');
             $table->string('state')->index();
             $table->string('image');

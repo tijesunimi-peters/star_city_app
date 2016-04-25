@@ -1,6 +1,6 @@
 'use strict';
 
 angular.module('StarCityApp')
-  .controller('DashboardCtrl', function ($scope,$window) {
-    $scope.user = JSON.parse($window.sessionStorage.getItem('userData'));
+  .controller('DashboardCtrl', function ($scope,UserService) {
+    $scope.user = UserService.getUser();
   });

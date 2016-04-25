@@ -3,17 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Auth\Authenticatable;
-use Illuminate\Auth\Passwords\CanResetPassword;
-use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
-use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
-use Illuminate\Contracts\Auth\Guard;
 
 
 
-class Star extends Model implements AuthenticatableContract, CanResetPasswordContract
+class Star extends Model 
 {
-	use Authenticatable, CanResetPassword;
     protected $table = 'stars';
 
     /**
@@ -22,7 +16,7 @@ class Star extends Model implements AuthenticatableContract, CanResetPasswordCon
      * @var array
      */
     protected $fillable = [
-        'first_name', 'last_name','sex','city','state','address','image'
+        'first_name', 'last_name','sex','city','state','address','image','bio','DOB'
     ];
 
     /**
